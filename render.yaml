@@ -1,0 +1,43 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Creates the web service + a managed PostgreSQL database in one step.
+# On Render: New -> Blueprint -> select this repository -> it reads this file automatically.
+services:
+  - type: web
+    name: aristide-suy-portfolio
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: "pip install -r requirements.txt && flask db upgrade && flask seed-content && flask create-admin"
+    startCommand: "gunicorn wsgi:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+      - key: FLASK_APP
+        value: wsgi.py
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_EMAIL
+        value: jeanoelsuyaristide@gmail.com
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DEFAULT_LANGUAGE
+        value: fr
+      - key: SITE_URL
+        value: https://aristide-suy-portfolio.onrender.com
+      - key: ANALYTICS_SCRIPT_SRC
+        value: ""
+      - key: ANALYTICS_SCRIPT_DOMAIN
+        value: ""
+      - key: DATABASE_URL
+        fromDatabase:
+          name: aristide-suy-db
+          property: connectionString
+
+databases:
+  - name: aristide-suy-db
+    plan: free
+    region: frankfurt

@@ -1,0 +1,16 @@
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.7
+Flask-Login==0.6.3
+Flask-WTF==1.2.1
+Flask-Limiter==3.7.0
+python-dotenv==1.0.1
+email-validator==2.1.1
+Markdown==3.6
+bleach==6.1.0
+Werkzeug==3.0.3
+
+# Production: PostgreSQL driver + WSGI server (used on Render; SQLite/the
+# Flask dev server are still used automatically in local development)
+psycopg2-binary==2.9.10
+gunicorn==22.0.0

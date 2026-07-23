@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import field, checkbox_field %}
+{% block title %}{{ "Ajouter" if is_new else "Modifier" }} un témoignage{% endblock %}
+{% block page_title %}{{ "Ajouter" if is_new else "Modifier" }} un témoignage{% endblock %}
+
+{% block content %}
+<form method="POST" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 space-y-5 max-w-xl">
+  {{ form.hidden_tag() }}
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.quote_fr, rows=3) }}
+    {{ field(form.quote_en, rows=3) }}
+  </div>
+  {{ field(form.author_name) }}
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.author_role) }}
+    {{ field(form.author_company) }}
+  </div>
+  <div class="grid sm:grid-cols-2 gap-5 items-center">
+    {{ checkbox_field(form.published) }}
+    {{ field(form.order) }}
+  </div>
+  <div class="flex gap-3 pt-2">
+    <button type="submit" class="px-5 py-2.5 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">Enregistrer</button>
+    <a href="{{ url_for('admin.list_testimonials') }}" class="px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 font-semibold">Annuler</a>
+  </div>
+</form>
+{% endblock %}

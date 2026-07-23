@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import delete_button %}
+{% block title %}Projets{% endblock %}
+{% block page_title %}Projets{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <p class="text-sm text-slate-500 dark:text-slate-400">{{ projects|length }} projet(s)</p>
+  <a href="{{ url_for('admin.add_project') }}" class="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">+ Ajouter</a>
+</div>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {% for project in projects %}
+  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+    <img src="{% if project.image_filename %}{{ url_for('static', filename='uploads/' + project.image_filename) }}{% else %}{{ url_for('static', filename='img/project-placeholder.svg') }}{% endif %}"
+         alt="" class="w-full h-32 object-cover">
+    <div class="p-4">
+      <p class="font-medium">{{ project.title_fr }}</p>
+      <p class="text-xs text-slate-400 mt-0.5">Ordre : {{ project.order }}</p>
+      <div class="mt-3 flex gap-3 text-sm">
+        <a href="{{ url_for('admin.edit_project', project_id=project.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline">Modifier</a>
+        {{ delete_button('admin.delete_project', {'project_id': project.id}, "Supprimer ce projet") }}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p class="text-slate-400 col-span-full text-center py-8">Aucun projet pour le moment.</p>
+  {% endfor %}
+</div>
+{% endblock %}

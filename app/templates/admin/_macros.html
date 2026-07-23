@@ -1,0 +1,27 @@
+{% macro field(f, rows=None) %}
+<div>
+  <label for="{{ f.id }}" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ f.label.text }}</label>
+  {% if rows %}
+    {{ f(id=f.id, rows=rows, class_="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500") }}
+  {% else %}
+    {{ f(id=f.id, class_="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500") }}
+  {% endif %}
+  {% if f.errors %}
+  <ul class="mt-1 text-xs text-rose-600 dark:text-rose-400">
+    {% for error in f.errors %}<li>{{ error }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro checkbox_field(f) %}
+<label class="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+  {{ f(id=f.id) }} {{ f.label.text }}
+</label>
+{% endmacro %}
+
+{% macro delete_button(endpoint, item_id, label="Supprimer un élément") %}
+<form method="POST" action="{{ url_for(endpoint, **item_id) }}" onsubmit="return confirm('{{ label }} ? Cette action est irréversible.');" class="inline">
+  <button type="submit" class="text-rose-600 dark:text-rose-400 hover:underline text-sm font-medium">Supprimer</button>
+</form>
+{% endmacro %}

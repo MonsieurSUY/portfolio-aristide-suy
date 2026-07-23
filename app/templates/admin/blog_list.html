@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import delete_button %}
+{% block title %}Articles de blog{% endblock %}
+{% block page_title %}Articles de blog{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <p class="text-sm text-slate-500 dark:text-slate-400">{{ posts|length }} article(s) — seuls ceux "Publié" s'affichent sur le site.</p>
+  <a href="{{ url_for('admin.add_blog_post') }}" class="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">+ Ajouter</a>
+</div>
+
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-slate-50 dark:bg-slate-800/50 text-left text-slate-500 dark:text-slate-400">
+      <tr>
+        <th class="px-4 py-3">Titre</th>
+        <th class="px-4 py-3">Date</th>
+        <th class="px-4 py-3">Publié</th>
+        <th class="px-4 py-3 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+      {% for post in posts %}
+      <tr>
+        <td class="px-4 py-3 font-medium">{{ post.title_fr }}</td>
+        <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{{ post.created_at.strftime("%d/%m/%Y") }}</td>
+        <td class="px-4 py-3">{{ "Oui" if post.published else "Non" }}</td>
+        <td class="px-4 py-3 text-right space-x-3">
+          <a href="{{ url_for('admin.edit_blog_post', post_id=post.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline">Modifier</a>
+          {{ delete_button('admin.delete_blog_post', {'post_id': post.id}, "Supprimer cet article") }}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" class="px-4 py-6 text-center text-slate-400">Aucun article pour le moment.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

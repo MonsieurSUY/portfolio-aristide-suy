@@ -1,0 +1,43 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import field %}
+{% block title %}{{ "Ajouter" if is_new else "Modifier" }} un projet{% endblock %}
+{% block page_title %}{{ "Ajouter" if is_new else "Modifier" }} un projet{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 space-y-5 max-w-2xl">
+  {{ form.hidden_tag() }}
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.title_fr) }}
+    {{ field(form.title_en) }}
+  </div>
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.short_description_fr, rows=2) }}
+    {{ field(form.short_description_en, rows=2) }}
+  </div>
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.long_description_fr, rows=4) }}
+    {{ field(form.long_description_en, rows=4) }}
+  </div>
+
+  {% if item and item.image_filename %}
+  <img src="{{ url_for('static', filename='uploads/' + item.image_filename) }}" alt="" class="w-40 h-24 object-cover rounded-lg border border-slate-200 dark:border-slate-800">
+  {% endif %}
+  {{ field(form.image) }}
+  <p class="text-xs text-slate-400 -mt-3">PNG, JPG, WEBP ou GIF, 5 Mo max.</p>
+
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.tech_stack) }}
+    {{ field(form.project_date) }}
+  </div>
+  <div class="grid sm:grid-cols-2 gap-5">
+    {{ field(form.demo_url) }}
+    {{ field(form.source_url) }}
+  </div>
+  {{ field(form.order) }}
+
+  <div class="flex gap-3 pt-2">
+    <button type="submit" class="px-5 py-2.5 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">Enregistrer</button>
+    <a href="{{ url_for('admin.list_projects') }}" class="px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 font-semibold">Annuler</a>
+  </div>
+</form>
+{% endblock %}

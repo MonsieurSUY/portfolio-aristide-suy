@@ -1,0 +1,6 @@
+<footer class="border-t border-slate-200 dark:border-slate-800 py-10 mt-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500 dark:text-slate-400">
+    <p>&copy; {{ current_year }} {{ profile.full_name if profile else "" }}. {{ t("footer.rights") }}</p>
+    <p>{{ t("footer.made_with") }}</p>
+  </div>
+</footer>
