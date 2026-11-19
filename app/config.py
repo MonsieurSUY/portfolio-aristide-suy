@@ -28,6 +28,10 @@ class Config:
     ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@example.com")
     ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "changeme123")
 
+    # Local admin mode (set by the desktop launcher): auto-login from 127.0.0.1 and
+    # enable the "Publier" button. Never set this on a public server.
+    LOCAL_ADMIN = os.environ.get("LOCAL_ADMIN") == "1"
+
     # Sessions / remember-me
     REMEMBER_COOKIE_DURATION = timedelta(days=14)
 

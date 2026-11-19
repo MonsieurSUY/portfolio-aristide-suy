@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 
 from app.blueprints.auth import auth_bp
@@ -12,6 +12,14 @@ from app.models import AdminUser
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("admin.dashboard"))
+
+    # Local desktop mode: the server only listens on this PC, so skip the password.
+    if current_app.config["LOCAL_ADMIN"] and request.remote_addr in ("127.0.0.1", "::1"):
+        user = AdminUser.query.first()
+        if user:
+            login_user(user)
+            next_url = request.args.get("next")
+            return redirect(next_url if next_url and next_url.startswith("/") else url_for("admin.dashboard"))
 
     form = LoginForm()
     if form.validate_on_submit():

@@ -1,22 +1,22 @@
 <header class="fixed top-0 inset-x-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
   <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Navigation principale">
-    <a href="{{ url_for('public.index') }}" class="font-display font-bold text-lg text-slate-900 dark:text-white">
+    <a href="{{ home_url }}" class="font-display font-bold text-lg text-slate-900 dark:text-white">
       {{ profile.full_name if profile else "Portfolio" }}
     </a>
 
     <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-      <a href="{{ url_for('public.index') }}#about" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.about") }}</a>
-      <a href="{{ url_for('public.index') }}#skills" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.skills") }}</a>
-      <a href="{{ url_for('public.index') }}#experience" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.experience") }}</a>
+      <a href="{{ home_url }}#about" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.about") }}</a>
+      <a href="{{ home_url }}#skills" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.skills") }}</a>
+      <a href="{{ home_url }}#experience" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.experience") }}</a>
       {% if projects is defined and projects %}
-      <a href="{{ url_for('public.index') }}#projects" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.projects") }}</a>
+      <a href="{{ home_url }}#projects" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.projects") }}</a>
       {% endif %}
-      <a href="{{ url_for('public.index') }}#education" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.education") }}</a>
-      <a href="{{ url_for('public.index') }}#contact" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.contact") }}</a>
+      <a href="{{ home_url }}#education" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.education") }}</a>
+      <a href="{{ home_url }}#contact" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.contact") }}</a>
     </div>
 
     <div class="flex items-center gap-2">
-      <a href="{{ url_for('public.set_language', lang='en' if g.lang == 'fr' else 'fr') }}"
+      <a href="{{ lang_switch_url }}"
          class="w-9 h-9 flex items-center justify-center rounded-full text-sm font-semibold border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
          aria-label="{{ t('lang.toggle') }}">
         {{ "EN" if g.lang == "fr" else "FR" }}
@@ -33,13 +33,13 @@
     </div>
   </nav>
   <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 flex flex-col gap-3 text-sm font-medium">
-    <a href="{{ url_for('public.index') }}#about">{{ t("nav.about") }}</a>
-    <a href="{{ url_for('public.index') }}#skills">{{ t("nav.skills") }}</a>
-    <a href="{{ url_for('public.index') }}#experience">{{ t("nav.experience") }}</a>
+    <a href="{{ home_url }}#about">{{ t("nav.about") }}</a>
+    <a href="{{ home_url }}#skills">{{ t("nav.skills") }}</a>
+    <a href="{{ home_url }}#experience">{{ t("nav.experience") }}</a>
     {% if projects is defined and projects %}
-    <a href="{{ url_for('public.index') }}#projects">{{ t("nav.projects") }}</a>
+    <a href="{{ home_url }}#projects">{{ t("nav.projects") }}</a>
     {% endif %}
-    <a href="{{ url_for('public.index') }}#education">{{ t("nav.education") }}</a>
-    <a href="{{ url_for('public.index') }}#contact">{{ t("nav.contact") }}</a>
+    <a href="{{ home_url }}#education">{{ t("nav.education") }}</a>
+    <a href="{{ home_url }}#contact">{{ t("nav.contact") }}</a>
   </div>
 </header>

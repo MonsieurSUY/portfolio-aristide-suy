@@ -64,7 +64,27 @@ def create_app(config_name=None):
     @app.context_processor
     def inject_globals():
         from datetime import datetime
-        return {"current_year": datetime.utcnow().year}
+        from flask import url_for
+
+        lang = get_locale()
+        static_export = app.config.get("STATIC_EXPORT", False)
+        if static_export:
+            # Pre-rendered site: French at "/", English under "/en/".
+            prefix = "/en" if lang == "en" else ""
+            urls = {
+                "home_url": prefix + "/",
+                "lang_switch_url": "/" if lang == "en" else "/en/",
+                "cv_url": app.config.get("CV_STATIC_URL", "/cv.pdf"),
+                "post_url": lambda slug: f"{prefix}/blog/{slug}/",
+            }
+        else:
+            urls = {
+                "home_url": url_for("public.index"),
+                "lang_switch_url": url_for("public.set_language", lang="en" if lang == "fr" else "fr"),
+                "cv_url": url_for("public.download_cv"),
+                "post_url": lambda slug: url_for("public.blog_post", slug=slug),
+            }
+        return {"current_year": datetime.utcnow().year, "static_export": static_export, **urls}
 
     # ---- Template filters ----
     @app.template_filter("markdown")

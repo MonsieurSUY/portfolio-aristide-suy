@@ -60,6 +60,8 @@ TRANSLATIONS = {
     "contact.subject": {"fr": "Sujet", "en": "Subject"},
     "contact.message": {"fr": "Message", "en": "Message"},
     "contact.send": {"fr": "Envoyer le message", "en": "Send message"},
+    "contact.write_me": {"fr": "Écrivez-moi par email", "en": "Email me"},
+    "contact.mailto_subject": {"fr": "Contact depuis votre portfolio", "en": "Contact from your portfolio"},
     "contact.success": {
         "fr": "Merci ! Votre message a bien été envoyé.",
         "en": "Thanks! Your message has been sent.",
@@ -94,6 +96,9 @@ TRANSLATIONS = {
 
 
 def get_locale():
+    forced = current_app.config.get("FORCE_LANG")  # set by the static export
+    if forced:
+        return forced
     lang = session.get("lang")
     if lang in current_app.config["LANGUAGES"]:
         return lang

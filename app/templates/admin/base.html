@@ -59,7 +59,12 @@
       {% endfor %}
     </nav>
     <div class="p-3 border-t border-slate-800">
+      {% if config.LOCAL_ADMIN %}
+      <a href="{{ url_for('admin.publish') }}" class="block px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold mb-1">Publier le site</a>
+      <a href="https://bikoue.jsph.site" target="_blank" class="block px-3 py-2 rounded-lg hover:bg-slate-800 text-sm">Voir le site en ligne ↗</a>
+      {% else %}
       <a href="{{ url_for('public.index') }}" target="_blank" class="block px-3 py-2 rounded-lg hover:bg-slate-800 text-sm">Voir le site ↗</a>
+      {% endif %}
       <a href="{{ url_for('auth.logout') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 text-sm">Se déconnecter</a>
     </div>
   </aside>

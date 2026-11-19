@@ -1,0 +1,454 @@
+{
+  "profile": [
+    {
+      "id": 1,
+      "full_name": "Bi Koué Jean Noël Aristide Suy",
+      "title_fr": "Analyste Statisticien Économiste",
+      "title_en": "Statistical Analyst & Economist",
+      "tagline_fr": "Je transforme les données en outils d'aide au pilotage et à l'élaboration des politiques publiques.",
+      "tagline_en": "I turn data into tools for steering decisions and shaping public policy.",
+      "about_fr": "Analyste Statisticien - Économiste spécialisé dans l'analyse de données, les études sectorielles et l'appui à la décision. Expérimenté en administration publique et suivi de projets, je transforme les données en outils d'aide au pilotage et à l'élaboration des politiques publiques.\n\nRigoureux, polyvalent et orienté résultats.",
+      "about_en": "Statistical Analyst and Economist specialized in data analysis, sector studies and decision support. Experienced in public administration and project monitoring, I turn data into tools for steering decisions and shaping public policy.\n\nRigorous, versatile and results-driven.",
+      "availability_fr": "En poste",
+      "availability_en": "Employed",
+      "avatar_filename": "avatar-aristide-ca28dd56.png",
+      "cv_filename": "cv-aristide-e09c533f.pdf",
+      "email": "jeanoelsuyaristide@gmail.com",
+      "linkedin_url": "",
+      "github_url": "",
+      "phone": "+225 07 69 59 65 24",
+      "updated_at": "2026-07-23T21:17:49.963827"
+    }
+  ],
+  "skill": [
+    {
+      "id": 1,
+      "name_fr": "Méthodologie d'enquêtes quantitatives et qualitatives",
+      "name_en": "Quantitative & qualitative survey methodology",
+      "category_fr": "Statistique",
+      "category_en": "Statistics",
+      "level": null,
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name_fr": "Collecte, traitement, analyse, diffusion et archivage de données",
+      "name_en": "Data collection, processing, analysis, dissemination & archiving",
+      "category_fr": "Statistique",
+      "category_en": "Statistics",
+      "level": null,
+      "order": 2
+    },
+    {
+      "id": 3,
+      "name_fr": "Analyse descriptive de données",
+      "name_en": "Descriptive data analysis",
+      "category_fr": "Statistique",
+      "category_en": "Statistics",
+      "level": null,
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name_fr": "Interprétation et communication des données",
+      "name_en": "Data interpretation & communication",
+      "category_fr": "Statistique",
+      "category_en": "Statistics",
+      "level": null,
+      "order": 4
+    },
+    {
+      "id": 5,
+      "name_fr": "Production de rapports d'analyse ; storytelling",
+      "name_en": "Analytical reporting & data storytelling",
+      "category_fr": "Statistique",
+      "category_en": "Statistics",
+      "level": null,
+      "order": 5
+    },
+    {
+      "id": 6,
+      "name_fr": "Pack Office ; Excel avancé",
+      "name_en": "MS Office; Advanced Excel",
+      "category_fr": "Informatique",
+      "category_en": "Software & Tools",
+      "level": "expert",
+      "order": 6
+    },
+    {
+      "id": 7,
+      "name_fr": "Tableau, Power BI, MS Project, QGIS",
+      "name_en": "Tableau, Power BI, MS Project, QGIS",
+      "category_fr": "Informatique",
+      "category_en": "Software & Tools",
+      "level": "confirme",
+      "order": 7
+    },
+    {
+      "id": 8,
+      "name_fr": "CSPro, SuSo, Kobo Collect",
+      "name_en": "CSPro, SuSo, Kobo Collect",
+      "category_fr": "Informatique",
+      "category_en": "Software & Tools",
+      "level": "confirme",
+      "order": 8
+    },
+    {
+      "id": 9,
+      "name_fr": "SPSS, STATA, SPAD",
+      "name_en": "SPSS, STATA, SPAD",
+      "category_fr": "Informatique",
+      "category_en": "Software & Tools",
+      "level": "confirme",
+      "order": 9
+    },
+    {
+      "id": 10,
+      "name_fr": "Python, R, VBA, HTML, CSS, JS",
+      "name_en": "Python, R, VBA, HTML, CSS, JS",
+      "category_fr": "Informatique",
+      "category_en": "Software & Tools",
+      "level": "confirme",
+      "order": 10
+    },
+    {
+      "id": 11,
+      "name_fr": "Photoshop, Premiere Pro, Illustrator",
+      "name_en": "Photoshop, Premiere Pro, Illustrator",
+      "category_fr": "Informatique",
+      "category_en": "Software & Tools",
+      "level": "debutant",
+      "order": 11
+    },
+    {
+      "id": 12,
+      "name_fr": "Économie, management, démographie",
+      "name_en": "Economics, management, demography",
+      "category_fr": "Technique",
+      "category_en": "Technical knowledge",
+      "level": null,
+      "order": 12
+    },
+    {
+      "id": 13,
+      "name_fr": "Développement web, bases de données",
+      "name_en": "Web development, databases",
+      "category_fr": "Technique",
+      "category_en": "Technical knowledge",
+      "level": null,
+      "order": 13
+    },
+    {
+      "id": 14,
+      "name_fr": "Économétrie, marketing, data science",
+      "name_en": "Econometrics, marketing, data science",
+      "category_fr": "Technique",
+      "category_en": "Technical knowledge",
+      "level": null,
+      "order": 14
+    },
+    {
+      "id": 15,
+      "name_fr": "Français",
+      "name_en": "French",
+      "category_fr": "Langues",
+      "category_en": "Languages",
+      "level": "expert",
+      "order": 15
+    },
+    {
+      "id": 16,
+      "name_fr": "Anglais",
+      "name_en": "English",
+      "category_fr": "Langues",
+      "category_en": "Languages",
+      "level": "confirme",
+      "order": 16
+    },
+    {
+      "id": 17,
+      "name_fr": "Discipline",
+      "name_en": "Discipline",
+      "category_fr": "Qualités",
+      "category_en": "Soft skills",
+      "level": null,
+      "order": 17
+    },
+    {
+      "id": 18,
+      "name_fr": "Créativité",
+      "name_en": "Creativity",
+      "category_fr": "Qualités",
+      "category_en": "Soft skills",
+      "level": null,
+      "order": 18
+    },
+    {
+      "id": 19,
+      "name_fr": "Travail en équipe",
+      "name_en": "Teamwork",
+      "category_fr": "Qualités",
+      "category_en": "Soft skills",
+      "level": null,
+      "order": 19
+    },
+    {
+      "id": 20,
+      "name_fr": "Communication",
+      "name_en": "Communication",
+      "category_fr": "Qualités",
+      "category_en": "Soft skills",
+      "level": null,
+      "order": 20
+    },
+    {
+      "id": 21,
+      "name_fr": "Orienté résultats",
+      "name_en": "Results-oriented",
+      "category_fr": "Qualités",
+      "category_en": "Soft skills",
+      "level": null,
+      "order": 21
+    },
+    {
+      "id": 22,
+      "name_fr": "Curiosité technique",
+      "name_en": "Technical curiosity",
+      "category_fr": "Qualités",
+      "category_en": "Soft skills",
+      "level": null,
+      "order": 22
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role_fr": "Formateur en entreprise",
+      "role_en": "Corporate Trainer",
+      "company": "Association des Gestionnaires des Ressources Humaines (AGRH)",
+      "location": "Abidjan, Côte d'Ivoire",
+      "start_date": "2026-05-01",
+      "end_date": null,
+      "description_fr": "Animation de formations professionnelles en analyse de données et outils décisionnels.",
+      "description_en": "Delivering professional training on data analysis and business intelligence tools.",
+      "achievements_fr": "Formation Excel Avancé & Power BI\r\nAnalyse de données & conception de tableaux de bord",
+      "achievements_en": "Advanced Excel & Power BI training\r\nData analysis & dashboard design",
+      "order": 3
+    },
+    {
+      "id": 3,
+      "role_fr": "Consultant — Banque Mondiale, Projet PHAS",
+      "role_en": "Consultant — World Bank, PHAS Project",
+      "company": "Agence Nationale de la Statistique (ANStat)",
+      "location": "Riviera Bonoumin, Abidjan",
+      "start_date": "2024-07-01",
+      "end_date": null,
+      "description_fr": "Appui à la collecte et au traitement de données statistiques nationales.",
+      "description_en": "Supporting the collection and processing of national statistical data.",
+      "achievements_fr": "Collecte et traitement de données (recensement et enquêtes)\r\nCalcul et publication des indicateurs conjoncturels",
+      "achievements_en": "Data collection and processing (census and surveys)\r\nComputed and published short-term economic indicators",
+      "order": 1
+    },
+    {
+      "id": 4,
+      "role_fr": "Statisticien",
+      "role_en": "Statistician",
+      "company": "Polyclinique FARAH",
+      "location": "Abidjan Marcory, Côte d'Ivoire",
+      "start_date": "2024-04-01",
+      "end_date": "2024-06-01",
+      "description_fr": "Suivi statistique de l'activité des services de la polyclinique.",
+      "description_en": "Statistical monitoring of the clinic's departmental activity.",
+      "achievements_fr": "Collecte, traitement et analyse des données des services\r\nProduction de tableaux de bord et de rapports périodiques",
+      "achievements_en": "Collected, processed and analyzed departmental data\r\nProduced dashboards and periodic reports",
+      "order": 3
+    },
+    {
+      "id": 5,
+      "role_fr": "Coordonnateur Général",
+      "role_en": "General Coordinator",
+      "company": "Complexe Commercial Ebenezer",
+      "location": "Yopougon Keneya, Abidjan",
+      "start_date": "2024-02-01",
+      "end_date": "2024-04-01",
+      "description_fr": "Coordination générale des activités commerciales du complexe.",
+      "description_en": "General coordination of the commercial complex's activities.",
+      "achievements_fr": "Coordination et supervision des activités des départements\r\nÉlaboration de stratégies commerciales et de gestion",
+      "achievements_en": "Coordinated and supervised departmental activities\r\nDeveloped commercial and management strategies",
+      "order": 4
+    },
+    {
+      "id": 6,
+      "role_fr": "Junior Analyst (Finance & Stratégie)",
+      "role_en": "Junior Analyst (Finance & Strategy)",
+      "company": "SEVEN-CAP",
+      "location": "Cocody Angré, Abidjan",
+      "start_date": "2023-09-01",
+      "end_date": "2024-02-01",
+      "description_fr": "Appui aux missions de conseil en restructuration d'entreprises.",
+      "description_en": "Supported corporate restructuring advisory engagements.",
+      "achievements_fr": "Suivi, coordination et évaluation des opérations de restructuration\r\nAnalyse des opérations et processus des entreprises\r\nRédaction de rapports et de comptes rendus de réunions",
+      "achievements_en": "Tracked, coordinated and evaluated restructuring operations\r\nAnalyzed company operations and processes\r\nDrafted reports and meeting minutes",
+      "order": 5
+    }
+  ],
+  "project": [],
+  "education": [
+    {
+      "id": 1,
+      "institution": "Institut Universitaire d'Abidjan (IUA)",
+      "degree_fr": "Master Économie du Développement (en cours)",
+      "degree_en": "Master's in Development Economics (in progress)",
+      "year": "Depuis 2025",
+      "verification_url": "",
+      "category": "diplome",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "institution": "École Nationale Supérieure de Statistique et d'Économie Appliquée (ENSEA)",
+      "degree_fr": "Diplôme d'Analyste Statisticien (AS)",
+      "degree_en": "Statistical Analyst (AS) Diploma",
+      "year": "2020 – 2023",
+      "verification_url": "",
+      "category": "diplome",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "institution": "École Nationale Supérieure de Statistique et d'Économie Appliquée (ENSEA)",
+      "degree_fr": "Diplôme d'Agent Technique de la Statistique (AT)",
+      "degree_en": "Statistical Technical Officer (AT) Diploma",
+      "year": "2019 – 2020",
+      "verification_url": "",
+      "category": "diplome",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "institution": "Campus AFD (Agence Française de Développement)",
+      "degree_fr": "Concevoir un projet de développement respectueux de l'environnement et des populations",
+      "degree_en": "Designing an Environmentally & Socially Responsible Development Project",
+      "year": "Janvier 2024",
+      "verification_url": "",
+      "category": "certification",
+      "order": 4
+    },
+    {
+      "id": 5,
+      "institution": "Campus AFD (Agence Française de Développement)",
+      "degree_fr": "Suivi et évaluation d'un projet de développement",
+      "degree_en": "Monitoring & Evaluation of a Development Project",
+      "year": "Février 2024",
+      "verification_url": "",
+      "category": "certification",
+      "order": 5
+    },
+    {
+      "id": 6,
+      "institution": "OpenClassrooms",
+      "degree_fr": "Gérer un projet digital avec une méthodologie en cascade",
+      "degree_en": "Managing a Digital Project with a Waterfall Methodology",
+      "year": "Janvier 2024",
+      "verification_url": "",
+      "category": "certification",
+      "order": 6
+    },
+    {
+      "id": 7,
+      "institution": "OpenClassrooms",
+      "degree_fr": "Maîtriser les fondamentaux d'Excel & Excel avancé",
+      "degree_en": "Excel Fundamentals & Advanced Excel",
+      "year": "Janvier 2024",
+      "verification_url": "",
+      "category": "certification",
+      "order": 7
+    },
+    {
+      "id": 8,
+      "institution": "OpenClassrooms",
+      "degree_fr": "Réaliser des dashboards avec Power BI",
+      "degree_en": "Building Dashboards with Power BI",
+      "year": "Février 2024",
+      "verification_url": "",
+      "category": "certification",
+      "order": 8
+    },
+    {
+      "id": 9,
+      "institution": "PHASAOC — Volet UEMOA",
+      "degree_fr": "Introduction aux méthodes d'échantillonnage pour les enquêtes auprès des ménages",
+      "degree_en": "Introduction to Sampling Methods for Household Surveys",
+      "year": "Février 2026",
+      "verification_url": "",
+      "category": "formation",
+      "order": 9
+    },
+    {
+      "id": 10,
+      "institution": "PHASAOC — Volet UEMOA",
+      "degree_fr": "Mesurer le patrimoine des ménages pour analyser leur vulnérabilité",
+      "degree_en": "Measuring Household Wealth to Assess Vulnerability",
+      "year": "Mars – Avril 2026",
+      "verification_url": "",
+      "category": "formation",
+      "order": 10
+    },
+    {
+      "id": 11,
+      "institution": "Agence Nationale de la Statistique (ANStat)",
+      "degree_fr": "Renforcement de capacités sur le SDMX/ODP 2.0",
+      "degree_en": "SDMX/ODP 2.0 Capacity Building",
+      "year": "Janvier 2026",
+      "verification_url": "",
+      "category": "formation",
+      "order": 11
+    }
+  ],
+  "testimonial": [],
+  "interest": [
+    {
+      "id": 1,
+      "name_fr": "Échecs",
+      "name_en": "Chess",
+      "icon": "♟️",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name_fr": "Vélo",
+      "name_en": "Cycling",
+      "icon": "🚴",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "name_fr": "Natation",
+      "name_en": "Swimming",
+      "icon": "🏊",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name_fr": "Voyage",
+      "name_en": "Travel",
+      "icon": "✈️",
+      "order": 4
+    },
+    {
+      "id": 5,
+      "name_fr": "Découverte",
+      "name_en": "Exploration",
+      "icon": "🧭",
+      "order": 5
+    },
+    {
+      "id": 6,
+      "name_fr": "Animés",
+      "name_en": "Anime",
+      "icon": "🎬",
+      "order": 6
+    }
+  ],
+  "blog_post": []
+}

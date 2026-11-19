@@ -6,8 +6,9 @@ env/
 .env
 app.db
 instance/
-app/static/uploads/*
-!app/static/uploads/.gitkeep
+dist/
+.vercel/
 .pytest_cache/
 *.log
 .DS_Store
+Portfolio - Acces et Liens.pdf

@@ -1,4 +1,8 @@
-from flask import render_template, redirect, url_for, flash, request, abort
+import subprocess
+import sys
+from pathlib import Path
+
+from flask import render_template, redirect, url_for, flash, request, abort, current_app
 
 from app.blueprints.admin import admin_bp
 from app.extensions import db
@@ -402,3 +406,21 @@ def delete_message(message_id):
     db.session.commit()
     flash("Message supprimé.", "success")
     return redirect(url_for("admin.list_messages"))
+
+
+# ------------------------------------------------------------------ Publish
+@admin_bp.route("/publish", methods=["GET", "POST"])
+def publish():
+    """Local-only: rebuild the static site, deploy it and back it up on Git."""
+    if not current_app.config["LOCAL_ADMIN"]:
+        abort(404)
+    if request.method == "GET":
+        return render_template("admin/publish.html", log=None)
+
+    root = Path(current_app.root_path).parent
+    result = subprocess.run(
+        [sys.executable, "-X", "utf8", str(root / "publish.py")], cwd=root,
+        capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=600,
+    )
+    return render_template("admin/publish.html", log=(result.stdout + result.stderr).strip(),
+                           success=result.returncode == 0)

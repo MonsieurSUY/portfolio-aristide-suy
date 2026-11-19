@@ -40,3 +40,21 @@ def register_cli(app):
 
         run_seed()
         click.echo("Contenu inséré (les tables déjà remplies n'ont pas été touchées).")
+
+    @app.cli.command("export-content")
+    @with_appcontext
+    def export_content_cmd():
+        """Write the editable content to content/content.json (versioned in Git)."""
+        from app.content_io import export_content
+
+        click.echo(f"Contenu exporté dans {export_content()}")
+
+    @app.cli.command("import-content")
+    @click.option("--replace", is_flag=True, help="Écrase le contenu existant.")
+    @with_appcontext
+    def import_content_cmd(replace):
+        """Load content/content.json into the database (empty tables only, unless --replace)."""
+        from app.content_io import import_content
+
+        import_content(replace=replace)
+        click.echo("Contenu importé.")

@@ -8,7 +8,7 @@
 
 <main id="main-content" class="pt-32 pb-24">
   <article class="max-w-2xl mx-auto px-4 sm:px-6" data-aos="fade-up">
-    <a href="{{ url_for('public.index') }}#blog" class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline">← {{ t("blog.back") }}</a>
+    <a href="{{ home_url }}#blog" class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline">← {{ t("blog.back") }}</a>
     <p class="mt-6 text-xs text-slate-400">{{ post.created_at.strftime("%d/%m/%Y") }}</p>
     <h1 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">{{ post.title }}</h1>
     <div class="prose prose-slate dark:prose-invert max-w-none mt-8 prose-p:leading-relaxed">
