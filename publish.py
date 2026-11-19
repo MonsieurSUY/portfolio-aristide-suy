@@ -3,6 +3,7 @@
 Used by the "Publier" button of the local admin, or from a terminal:
     python publish.py [--no-deploy] [--no-git]
 """
+import os
 import shutil
 import subprocess
 import sys
@@ -17,12 +18,34 @@ def step(title):
     print(f"\n=== {title} ===", flush=True)
 
 
+def tool_env():
+    """Environment with the usual Node/npm folders added, for icon launches with a short PATH."""
+    env = os.environ.copy()
+    extra = [Path(os.environ.get("APPDATA", "")) / "npm", Path(os.environ.get("ProgramFiles", "")) / "nodejs"]
+    env["PATH"] = os.pathsep.join([str(p) for p in extra if p.exists()] + [env.get("PATH", "")])
+    return env
+
+
 def run(cmd, cwd=ROOT):
     result = subprocess.run(cmd, cwd=cwd, shell=True, capture_output=True, text=True,
-                            encoding="utf-8", errors="replace")
+                            encoding="utf-8", errors="replace", env=tool_env())
     out = (result.stdout or "") + (result.stderr or "")
     print(out.strip(), flush=True)
     return result.returncode == 0
+
+
+def find_vercel():
+    """Locate the Vercel CLI even when PATH is minimal (e.g. launched from a desktop icon)."""
+    for name in ("vercel.cmd", "vercel"):
+        found = shutil.which(name)
+        if found:
+            return found
+    candidates = [Path(os.environ.get("APPDATA", "")) / "npm" / "vercel.cmd",
+                  Path(os.environ.get("ProgramFiles", "")) / "nodejs" / "vercel.cmd"]
+    for path in candidates:
+        if path.exists():
+            return str(path)
+    return None
 
 
 def main(argv):
@@ -45,7 +68,11 @@ def main(argv):
         step("3/4 Mise en ligne sur Vercel (bikoue.jsph.site)")
         (DIST / ".vercel").mkdir(exist_ok=True)
         shutil.copy(ROOT / "deploy" / "vercel-project.json", DIST / ".vercel" / "project.json")
-        if run("vercel deploy --prod --yes", cwd=DIST):
+        vercel = find_vercel()
+        if not vercel:
+            print("ÉCHEC : la commande 'vercel' est introuvable. Installez-la avec : npm i -g vercel")
+            ok = False
+        elif run(f'"{vercel}" deploy --prod --yes', cwd=DIST):
             print("Site en ligne.")
         else:
             print("ÉCHEC du déploiement Vercel (êtes-vous connecté ? commande : vercel login).")
