@@ -71,7 +71,12 @@ def main(argv):
         vercel = find_vercel()
         if not vercel:
             print("ÉCHEC : la commande 'vercel' est introuvable. Installez-la avec : npm i -g vercel")
-            print(f"(APPDATA={os.environ.get('APPDATA')!r}, PATH={os.environ.get('PATH', '')[:300]!r})")
+            appdata = Path(os.environ.get("APPDATA", ""))
+            try:
+                listing = sorted(p.name for p in (appdata / "npm").iterdir())[:12]
+            except Exception as exc:  # diagnostic only
+                listing = repr(exc)
+            print(f"(APPDATA={str(appdata)!r}, npm folder: {listing}, user={os.environ.get('USERNAME')!r}, exe={sys.executable!r})")
             ok = False
         elif run(f'"{vercel}" deploy --prod --yes', cwd=DIST):
             print("Site en ligne.")
