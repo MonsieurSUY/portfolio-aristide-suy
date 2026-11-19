@@ -1,37 +1,30 @@
 {% extends "admin/base.html" %}
-{% from "admin/_macros.html" import delete_button %}
+{% from "admin/_macros.html" import delete_button, add_button %}
 {% block title %}Centres d'intérêt{% endblock %}
 {% block page_title %}Centres d'intérêt{% endblock %}
 
 {% block content %}
-<div class="flex justify-between items-center mb-4">
-  <p class="text-sm text-slate-500 dark:text-slate-400">{{ interests|length }} élément(s)</p>
-  <a href="{{ url_for('admin.add_interest') }}" class="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">+ Ajouter</a>
+<div class="toolbar">
+  <p>{{ interests|length }} élément(s). La section n'apparaît sur le site que s'il y en a au moins un.</p>
+  {{ add_button('admin.add_interest') }}
 </div>
 
-<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-  <table class="w-full text-sm">
-    <thead class="bg-slate-50 dark:bg-slate-800/50 text-left text-slate-500 dark:text-slate-400">
-      <tr>
-        <th class="px-4 py-3">Ordre</th>
-        <th class="px-4 py-3">Icône</th>
-        <th class="px-4 py-3">Nom (FR / EN)</th>
-        <th class="px-4 py-3 text-right">Actions</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="glass table-wrap">
+  <table class="table">
+    <thead><tr><th>Ordre</th><th>Icône</th><th>Nom (FR / EN)</th><th></th></tr></thead>
+    <tbody>
       {% for interest in interests %}
       <tr>
-        <td class="px-4 py-3 text-slate-400">{{ interest.order }}</td>
-        <td class="px-4 py-3 text-lg">{{ interest.icon }}</td>
-        <td class="px-4 py-3 font-medium">{{ interest.name_fr }} <span class="text-slate-400">/ {{ interest.name_en }}</span></td>
-        <td class="px-4 py-3 text-right space-x-3">
-          <a href="{{ url_for('admin.edit_interest', interest_id=interest.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline">Modifier</a>
+        <td class="muted">{{ interest.order }}</td>
+        <td style="font-size:1.4rem">{{ interest.icon }}</td>
+        <td class="strong">{{ interest.name_fr }} <span class="muted">/ {{ interest.name_en }}</span></td>
+        <td class="actions">
+          <a href="{{ url_for('admin.edit_interest', interest_id=interest.id) }}" class="link-act">Modifier</a>
           {{ delete_button('admin.delete_interest', {'interest_id': interest.id}, "Supprimer ce centre d'intérêt") }}
         </td>
       </tr>
       {% else %}
-      <tr><td colspan="4" class="px-4 py-6 text-center text-slate-400">Aucun centre d'intérêt pour le moment.</td></tr>
+      <tr><td colspan="4" class="empty">Aucun centre d'intérêt pour le moment.</td></tr>
       {% endfor %}
     </tbody>
   </table>

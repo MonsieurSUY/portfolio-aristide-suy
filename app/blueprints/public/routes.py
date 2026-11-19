@@ -64,7 +64,7 @@ def index():
     context = dict(
         profile=profile,
         skills_by_category=skills_by_category,
-        hero_chips=list(skills_by_category.keys())[:3],
+        hero_chips=(profile.hero_tags if profile else []) or list(skills_by_category.keys())[:3],
         tools=tools,
         stats=stats,
         experiences=experiences,

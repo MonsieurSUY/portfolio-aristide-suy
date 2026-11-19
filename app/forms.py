@@ -48,6 +48,9 @@ class ProfileForm(FlaskForm):
     linkedin_url = StringField("LinkedIn", validators=[Optional(), URL(), Length(max=255)])
     github_url = StringField("GitHub", validators=[Optional(), URL(), Length(max=255)])
     phone = StringField("Téléphone", validators=[Optional(), Length(max=40)])
+    hero_tags_fr = StringField("Pastilles autour de la photo (FR)", validators=[Optional(), Length(max=160)])
+    hero_tags_en = StringField("Pastilles autour de la photo (EN)", validators=[Optional(), Length(max=160)])
+    formspree_id = StringField("Formspree (lien ou identifiant du formulaire)", validators=[Optional(), Length(max=120)])
     avatar = FileField("Photo de profil", validators=[Optional(), FileAllowed(IMAGE_EXTS, "Images uniquement.")])
     cv = FileField("CV (PDF)", validators=[Optional(), FileAllowed(PDF_EXTS, "PDF uniquement.")])
 

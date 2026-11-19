@@ -4,19 +4,19 @@
 
 {% block content %}
 {% if log is none %}
-<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 max-w-xl">
-  <p class="text-sm text-slate-600 dark:text-slate-300">
+<div class="glass form-card">
+  <p style="color:var(--ink-2)">
     Cette action met en ligne vos modifications sur <strong>bikoue.jsph.site</strong>
     et sauvegarde le contenu sur Git. Comptez environ une minute.
   </p>
-  <form method="POST" class="mt-5" onsubmit="this.querySelector('button').disabled = true; this.querySelector('button').textContent = 'Publication en cours…';">
-    <button type="submit" class="px-5 py-2.5 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">Publier maintenant</button>
+  <form method="POST" style="margin-top:1.4rem" onsubmit="var b=this.querySelector('button'); b.disabled=true; b.textContent='Publication en cours...';">
+    <button type="submit" class="btn btn-green">Publier maintenant</button>
   </form>
 </div>
 {% else %}
-<div class="mb-4 px-4 py-3 rounded-lg text-sm {{ 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' if success else 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' }}">
+<div class="alerts"><div class="alert {{ 'success' if success else 'error' }}">
   {{ "Publication réussie : votre site est à jour." if success else "La publication a rencontré une erreur, détails ci-dessous." }}
-</div>
-<pre class="bg-slate-900 text-slate-100 text-xs rounded-xl p-4 overflow-x-auto whitespace-pre-wrap">{{ log }}</pre>
+</div></div>
+<pre class="log">{{ log }}</pre>
 {% endif %}
 {% endblock %}

@@ -8,6 +8,12 @@
       "port": 5000
     },
     {
+      "name": "admin-local",
+      "runtimeExecutable": "venv\\Scripts\\python.exe",
+      "runtimeArgs": ["-c", "import os; os.environ['LOCAL_ADMIN']='1'; from wsgi import app; app.run(host='127.0.0.1', port=5000)"],
+      "port": 5000
+    },
+    {
       "name": "static-dist",
       "runtimeExecutable": "venv\\Scripts\\python.exe",
       "runtimeArgs": ["-m", "http.server", "8000", "--directory", "dist"],

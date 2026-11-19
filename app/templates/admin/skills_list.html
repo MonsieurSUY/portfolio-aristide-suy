@@ -1,39 +1,31 @@
 {% extends "admin/base.html" %}
-{% from "admin/_macros.html" import delete_button %}
+{% from "admin/_macros.html" import delete_button, add_button %}
 {% block title %}Compétences{% endblock %}
 {% block page_title %}Compétences{% endblock %}
 
 {% block content %}
-<div class="flex justify-between items-center mb-4">
-  <p class="text-sm text-slate-500 dark:text-slate-400">{{ skills|length }} compétence(s)</p>
-  <a href="{{ url_for('admin.add_skill') }}" class="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">+ Ajouter</a>
+<div class="toolbar">
+  <p>{{ skills|length }} compétence(s). Le champ « Ordre » règle l'affichage (du plus petit au plus grand).</p>
+  {{ add_button('admin.add_skill') }}
 </div>
 
-<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-  <table class="w-full text-sm">
-    <thead class="bg-slate-50 dark:bg-slate-800/50 text-left text-slate-500 dark:text-slate-400">
-      <tr>
-        <th class="px-4 py-3">Ordre</th>
-        <th class="px-4 py-3">Nom (FR / EN)</th>
-        <th class="px-4 py-3">Catégorie</th>
-        <th class="px-4 py-3">Niveau</th>
-        <th class="px-4 py-3 text-right">Actions</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="glass table-wrap">
+  <table class="table">
+    <thead><tr><th>Ordre</th><th>Nom (FR / EN)</th><th>Catégorie</th><th>Niveau</th><th></th></tr></thead>
+    <tbody>
       {% for skill in skills %}
       <tr>
-        <td class="px-4 py-3 text-slate-400">{{ skill.order }}</td>
-        <td class="px-4 py-3 font-medium">{{ skill.name_fr }} <span class="text-slate-400">/ {{ skill.name_en }}</span></td>
-        <td class="px-4 py-3">{{ skill.category_fr }}</td>
-        <td class="px-4 py-3">{{ skill.level or "-" }}</td>
-        <td class="px-4 py-3 text-right space-x-3">
-          <a href="{{ url_for('admin.edit_skill', skill_id=skill.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline">Modifier</a>
+        <td class="muted">{{ skill.order }}</td>
+        <td class="strong">{{ skill.name_fr }} <span class="muted">/ {{ skill.name_en }}</span></td>
+        <td>{{ skill.category_fr }}</td>
+        <td>{% if skill.level %}<span class="pill">{{ skill.level }}</span>{% else %}<span class="muted">-</span>{% endif %}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin.edit_skill', skill_id=skill.id) }}" class="link-act">Modifier</a>
           {{ delete_button('admin.delete_skill', {'skill_id': skill.id}, "Supprimer cette compétence") }}
         </td>
       </tr>
       {% else %}
-      <tr><td colspan="5" class="px-4 py-6 text-center text-slate-400">Aucune compétence pour le moment.</td></tr>
+      <tr><td colspan="5" class="empty">Aucune compétence pour le moment.</td></tr>
       {% endfor %}
     </tbody>
   </table>

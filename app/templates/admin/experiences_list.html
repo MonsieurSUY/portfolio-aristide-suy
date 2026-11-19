@@ -1,39 +1,30 @@
 {% extends "admin/base.html" %}
-{% from "admin/_macros.html" import delete_button %}
+{% from "admin/_macros.html" import delete_button, add_button %}
 {% block title %}Expériences{% endblock %}
 {% block page_title %}Expériences{% endblock %}
 
 {% block content %}
-<div class="flex justify-between items-center mb-4">
-  <p class="text-sm text-slate-500 dark:text-slate-400">{{ experiences|length }} expérience(s)</p>
-  <a href="{{ url_for('admin.add_experience') }}" class="px-4 py-2 rounded-lg bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors">+ Ajouter</a>
+<div class="toolbar">
+  <p>{{ experiences|length }} expérience(s). Sur le site, elles sont triées de la plus récente à la plus ancienne.</p>
+  {{ add_button('admin.add_experience') }}
 </div>
 
-<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-  <table class="w-full text-sm">
-    <thead class="bg-slate-50 dark:bg-slate-800/50 text-left text-slate-500 dark:text-slate-400">
-      <tr>
-        <th class="px-4 py-3">Ordre</th>
-        <th class="px-4 py-3">Poste</th>
-        <th class="px-4 py-3">Entreprise</th>
-        <th class="px-4 py-3">Période</th>
-        <th class="px-4 py-3 text-right">Actions</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="glass table-wrap">
+  <table class="table">
+    <thead><tr><th>Poste</th><th>Structure</th><th>Période</th><th></th></tr></thead>
+    <tbody>
       {% for exp in experiences %}
       <tr>
-        <td class="px-4 py-3 text-slate-400">{{ exp.order }}</td>
-        <td class="px-4 py-3 font-medium">{{ exp.role_fr }}</td>
-        <td class="px-4 py-3">{{ exp.company }}</td>
-        <td class="px-4 py-3 text-slate-500 dark:text-slate-400">{{ exp.start_date.strftime("%m/%Y") }} - {{ exp.end_date.strftime("%m/%Y") if exp.end_date else "en cours" }}</td>
-        <td class="px-4 py-3 text-right space-x-3">
-          <a href="{{ url_for('admin.edit_experience', experience_id=exp.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline">Modifier</a>
+        <td class="strong">{{ exp.role_fr }}</td>
+        <td>{{ exp.company }}</td>
+        <td class="muted">{{ exp.start_date.strftime("%m/%Y") }} - {{ exp.end_date.strftime("%m/%Y") if exp.end_date else "en cours" }}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin.edit_experience', experience_id=exp.id) }}" class="link-act">Modifier</a>
           {{ delete_button('admin.delete_experience', {'experience_id': exp.id}, "Supprimer cette expérience") }}
         </td>
       </tr>
       {% else %}
-      <tr><td colspan="5" class="px-4 py-6 text-center text-slate-400">Aucune expérience pour le moment.</td></tr>
+      <tr><td colspan="4" class="empty">Aucune expérience pour le moment.</td></tr>
       {% endfor %}
     </tbody>
   </table>

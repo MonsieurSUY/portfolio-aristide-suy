@@ -46,6 +46,8 @@ def edit_profile():
     form = ProfileForm(obj=profile)
     if form.validate_on_submit():
         form.populate_obj(profile)
+        # Accept either the full Formspree URL or just the form ID.
+        profile.formspree_id = (profile.formspree_id or "").strip().rstrip("/").split("/")[-1]
 
         if form.avatar.data:
             try:

@@ -431,6 +431,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .form label { display: block; margin-bottom: 0.35rem; font-size: 0.85rem; font-weight: 700; }
 .form input, .form textarea { width: 100%; padding: 0.85rem 1.1rem; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-strong); color: var(--ink); font: inherit; }
 .form input:focus, .form textarea:focus { outline: 2px solid rgba(var(--lav-rgb), 0.8); border-color: transparent; }
+.form-status { margin-top: 1rem; min-height: 1.4em; font-size: 0.95rem; font-weight: 600; }
+.form-status.ok { color: var(--teal-ink); }
+.form-status.err { color: var(--peach-ink); }
+.form button[disabled] { opacity: 0.6; cursor: progress; }
 .flash { max-width: 40rem; margin: 0 auto 1rem; padding: 0.8rem 1.1rem; border-radius: 16px; font-size: 0.92rem; background: rgba(var(--teal-rgb), 0.2); }
 .flash.error { background: rgba(var(--peach-rgb), 0.3); }
 

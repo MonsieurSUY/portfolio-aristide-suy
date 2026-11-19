@@ -1,61 +1,64 @@
 {% extends "admin/base.html" %}
 {% from "admin/_macros.html" import field %}
-{% block title %}Profil / Hero{% endblock %}
-{% block page_title %}Profil / Hero / À propos{% endblock %}
+{% block title %}Profil{% endblock %}
+{% block page_title %}Profil et photo{% endblock %}
 
 {% block content %}
-<form method="POST" enctype="multipart/form-data" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 space-y-5 max-w-2xl">
-  {{ form.hidden_tag() }}
+<div class="glass form-card wide">
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
 
-  {{ field(form.full_name) }}
-  <div class="grid sm:grid-cols-2 gap-5">
-    {{ field(form.title_fr) }}
-    {{ field(form.title_en) }}
-  </div>
-  <div class="grid sm:grid-cols-2 gap-5">
-    {{ field(form.tagline_fr, rows=2) }}
-    {{ field(form.tagline_en, rows=2) }}
-  </div>
-  <div class="grid sm:grid-cols-2 gap-5">
-    {{ field(form.about_fr, rows=6) }}
-    {{ field(form.about_en, rows=6) }}
-  </div>
-  <p class="text-xs text-slate-400 -mt-3">Le champ "À propos" accepte la syntaxe Markdown.</p>
-
-  <div class="grid sm:grid-cols-2 gap-5">
-    {{ field(form.availability_fr) }}
-    {{ field(form.availability_en) }}
-  </div>
-
-  <div class="grid sm:grid-cols-2 gap-5 items-start">
-    <div>
-      {% if profile.avatar_filename %}
-      <img src="{{ url_for('static', filename='uploads/' + profile.avatar_filename) }}" alt="" class="w-20 h-20 rounded-full object-cover mb-2">
-      {% endif %}
-      {{ field(form.avatar) }}
-      <p class="text-xs text-slate-400 mt-1">PNG, JPG, WEBP ou GIF, 5 Mo max.</p>
+    <div class="form-grid">
+      {{ field(form.full_name, full=True) }}
+      {{ field(form.title_fr) }}
+      {{ field(form.title_en) }}
+      {{ field(form.tagline_fr, rows=2) }}
+      {{ field(form.tagline_en, rows=2) }}
+      {{ field(form.about_fr, rows=7) }}
+      {{ field(form.about_en, rows=7) }}
     </div>
-    <div>
-      {% if profile.cv_filename %}
-      <p class="text-sm mb-2"><a href="{{ url_for('public.download_cv') }}" class="text-primary-600 dark:text-primary-400 hover:underline">CV actuel ↗</a></p>
-      {% endif %}
-      {{ field(form.cv) }}
-      <p class="text-xs text-slate-400 mt-1">PDF uniquement, 10 Mo max.</p>
+    <p class="hint">Le champ « À propos » accepte le Markdown. La première phrase est mise en valeur sur le site.</p>
+
+    <div class="form-grid">
+      {{ field(form.availability_fr) }}
+      {{ field(form.availability_en) }}
+      {{ field(form.hero_tags_fr) }}
+      {{ field(form.hero_tags_en) }}
     </div>
-  </div>
+    <p class="hint">Pastilles autour de la photo : jusqu'à 3 mots séparés par des virgules (par exemple : Statistique, Informatique, Économie).</p>
 
-  <div class="grid sm:grid-cols-2 gap-5">
-    {{ field(form.email) }}
-    {{ field(form.phone) }}
-  </div>
-  <div class="grid sm:grid-cols-2 gap-5">
-    {{ field(form.linkedin_url) }}
-    {{ field(form.github_url) }}
-  </div>
+    <h2 class="sep">Photo et CV</h2>
+    <div class="form-grid">
+      <div class="field">
+        {% if profile.avatar_filename %}<img src="{{ url_for('static', filename='uploads/' + profile.avatar_filename) }}" alt="" class="thumb round" style="margin-bottom:.6rem">{% endif %}
+        <label for="{{ form.avatar.id }}">{{ form.avatar.label.text }}</label>
+        {{ form.avatar(id=form.avatar.id) }}
+        <p class="hint">PNG, JPG, WEBP ou GIF, 5 Mo maximum.</p>
+      </div>
+      <div class="field">
+        {% if profile.cv_filename %}<p style="margin-bottom:.9rem;font-weight:700"><a href="{{ url_for('static', filename='uploads/' + profile.cv_filename) }}" target="_blank" class="link-act">CV actuel &nearr;</a></p>{% endif %}
+        <label for="{{ form.cv.id }}">{{ form.cv.label.text }}</label>
+        {{ form.cv(id=form.cv.id) }}
+        <p class="hint">PDF uniquement, 10 Mo maximum.</p>
+      </div>
+    </div>
 
-  <div class="flex gap-3 pt-2">
-    <button type="submit" class="px-5 py-2.5 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">Enregistrer</button>
-    <a href="{{ url_for('public.index') }}" target="_blank" class="px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 font-semibold">Voir le site ↗</a>
-  </div>
-</form>
+    <h2 class="sep">Contact</h2>
+    <div class="form-grid">
+      {{ field(form.email) }}
+      {{ field(form.phone) }}
+      {{ field(form.linkedin_url) }}
+      {{ field(form.github_url) }}
+      <div class="full">
+        {{ field(form.formspree_id) }}
+        <p class="hint">Formulaire de contact du site : collez ici le lien de votre formulaire Formspree (https://formspree.io/f/xxxxxxxx). Laissé vide, le site affiche un simple bouton « Écrivez-moi par email ».</p>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+      {% if config.LOCAL_ADMIN %}<a href="{{ url_for('admin.publish') }}" class="btn btn-ghost btn-sm">Publier le site</a>{% endif %}
+    </div>
+  </form>
+</div>
 {% endblock %}

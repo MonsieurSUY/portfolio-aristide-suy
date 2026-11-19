@@ -7,8 +7,8 @@
       "title_en": "Statistical Analyst & Economist",
       "tagline_fr": "Je transforme les données en outils d'aide au pilotage et à l'élaboration des politiques publiques.",
       "tagline_en": "I turn data into tools for steering decisions and shaping public policy.",
-      "about_fr": "Analyste Statisticien - Économiste spécialisé dans l'analyse de données, les études sectorielles et l'appui à la décision. Expérimenté en administration publique et suivi de projets, je transforme les données en outils d'aide au pilotage et à l'élaboration des politiques publiques.\n\nRigoureux, polyvalent et orienté résultats.",
-      "about_en": "Statistical Analyst and Economist specialized in data analysis, sector studies and decision support. Experienced in public administration and project monitoring, I turn data into tools for steering decisions and shaping public policy.\n\nRigorous, versatile and results-driven.",
+      "about_fr": "Analyste Statisticien - Économiste spécialisé dans l'analyse de données, les études sectorielles et l'appui à la décision. Expérimenté en administration publique et suivi de projets, je transforme les données en outils d'aide au pilotage et à l'élaboration des politiques publiques.\r\n\r\nRigoureux, polyvalent et orienté résultats.",
+      "about_en": "Statistical Analyst and Economist specialized in data analysis, sector studies and decision support. Experienced in public administration and project monitoring, I turn data into tools for steering decisions and shaping public policy.\r\n\r\nRigorous, versatile and results-driven.",
       "availability_fr": "En poste",
       "availability_en": "Employed",
       "avatar_filename": "avatar-aristide-ca28dd56.png",
@@ -17,7 +17,10 @@
       "linkedin_url": "",
       "github_url": "",
       "phone": "+225 07 69 59 65 24",
-      "updated_at": "2026-11-19T12:19:02.082610"
+      "hero_tags_fr": "Statistique, Informatique, Économie",
+      "hero_tags_en": "Statistics, Software, Economics",
+      "formspree_id": "",
+      "updated_at": "2026-11-19T13:07:28.149685"
     }
   ],
   "skill": [

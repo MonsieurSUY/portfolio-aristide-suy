@@ -48,7 +48,18 @@ class Profile(db.Model):
     github_url = db.Column(db.String(255), default="")
     phone = db.Column(db.String(40), default="")
 
+    # Short labels floating around the photo (comma separated, max 3 shown)
+    hero_tags_fr = db.Column(db.String(160), default="")
+    hero_tags_en = db.Column(db.String(160), default="")
+    # Formspree form ID (the part after /f/ in https://formspree.io/f/XXXX)
+    formspree_id = db.Column(db.String(60), default="")
+
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    @property
+    def hero_tags(self):
+        raw = _localized(self, "hero_tags") or ""
+        return [tag.strip() for tag in raw.split(",") if tag.strip()][:3]
 
     @property
     def title(self):

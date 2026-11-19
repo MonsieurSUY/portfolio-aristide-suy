@@ -11,5 +11,4 @@ login_manager = LoginManager()
 limiter = Limiter(key_func=get_remote_address)
 
 login_manager.login_view = "auth.login"
-login_manager.login_message = "Merci de vous connecter pour accéder à cette page."
-login_manager.login_message_category = "info"
+login_manager.login_message = None  # the login page itself makes the context obvious

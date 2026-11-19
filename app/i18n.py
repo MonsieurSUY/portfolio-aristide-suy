@@ -91,6 +91,8 @@ TRANSLATIONS = {
     "eyebrow.interests": {"fr": "Hors du travail", "en": "Beyond work"},
     "eyebrow.blog": {"fr": "Écrits", "en": "Writing"},
     "eyebrow.contact": {"fr": "Échangeons", "en": "Let's talk"},
+    "contact.sending": {"fr": "Envoi en cours...", "en": "Sending..."},
+    "contact.or_mail": {"fr": "ou directement par email :", "en": "or directly by email:"},
     "contact.call": {"fr": "Appeler", "en": "Call"},
 
     "theme.toggle": {"fr": "Changer de thème", "en": "Toggle theme"},

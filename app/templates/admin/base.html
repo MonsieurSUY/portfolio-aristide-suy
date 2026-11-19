@@ -1,101 +1,101 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
 <script>
   (function () {
-    var stored = localStorage.getItem("theme");
-    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (stored === "dark" || (!stored && prefersDark)) {
-      document.documentElement.classList.add("dark");
-    }
+    try {
+      var stored = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (stored === "dark" || (!stored && prefersDark)) document.documentElement.classList.add("dark");
+    } catch (e) {}
   })();
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}Administration{% endblock %} - Espace admin</title>
 <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"], display: ["Sora", "ui-sans-serif", "system-ui"] },
-        colors: {
-          primary: { 50:"#eef2ff",100:"#e0e7ff",200:"#c7d2fe",300:"#a5b4fc",400:"#818cf8",500:"#6366f1",600:"#4f46e5",700:"#4338ca",800:"#3730a3",900:"#312e81" },
-        },
-      },
-    },
-  };
-</script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,100&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 </head>
-<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen">
+<body class="adm">
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
 
-<div class="flex min-h-screen">
-  <aside class="w-64 shrink-0 bg-slate-900 text-slate-200 hidden lg:flex flex-col">
-    <div class="h-16 flex items-center px-6 font-display font-bold text-lg text-white border-b border-slate-800">
-      Administration
-    </div>
-    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 text-sm">
-      {% set nav_items = [
-        ("admin.dashboard", "Tableau de bord"),
-        ("admin.edit_profile", "Profil / Hero"),
-        ("admin.list_skills", "Compétences"),
-        ("admin.list_experiences", "Expériences"),
-        ("admin.list_projects", "Projets"),
-        ("admin.list_education", "Formations"),
-        ("admin.list_testimonials", "Témoignages"),
-        ("admin.list_interests", "Centres d'intérêt"),
-        ("admin.list_blog_posts", "Articles de blog"),
-        ("admin.list_messages", "Messages"),
-      ] %}
-      {% for endpoint, label in nav_items %}
-      <a href="{{ url_for(endpoint) }}"
-         class="block px-3 py-2 rounded-lg {{ 'bg-primary-600 text-white' if request.endpoint == endpoint else 'hover:bg-slate-800' }}">
-        {{ label }}
-      </a>
+{% set nav_content = [
+  ("admin.dashboard", "Tableau de bord", ["admin.dashboard"]),
+  ("admin.edit_profile", "Profil et photo", ["admin.edit_profile"]),
+  ("admin.list_skills", "Compétences", ["admin.list_skills", "admin.add_skill", "admin.edit_skill"]),
+  ("admin.list_experiences", "Expériences", ["admin.list_experiences", "admin.add_experience", "admin.edit_experience"]),
+  ("admin.list_projects", "Projets", ["admin.list_projects", "admin.add_project", "admin.edit_project"]),
+  ("admin.list_education", "Formations", ["admin.list_education", "admin.add_education", "admin.edit_education"]),
+  ("admin.list_testimonials", "Témoignages", ["admin.list_testimonials", "admin.add_testimonial", "admin.edit_testimonial"]),
+  ("admin.list_interests", "Centres d'intérêt", ["admin.list_interests", "admin.add_interest", "admin.edit_interest"]),
+  ("admin.list_blog_posts", "Articles de blog", ["admin.list_blog_posts", "admin.add_blog_post", "admin.edit_blog_post"]),
+] %}
+
+<div class="adm-layout">
+  <aside class="adm-side" id="adm-side">
+    <div class="adm-brand"><span class="brand-mark" aria-hidden="true">BS</span> Mon portfolio</div>
+    <nav class="adm-nav" aria-label="Administration">
+      <span class="group">Contenu</span>
+      {% for endpoint, label, related in nav_content %}
+      <a href="{{ url_for(endpoint) }}" class="{{ 'active' if request.endpoint in related else '' }}">{{ label }}</a>
       {% endfor %}
-    </nav>
-    <div class="p-3 border-t border-slate-800">
-      {% if config.LOCAL_ADMIN %}
-      <a href="{{ url_for('admin.publish') }}" class="block px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold mb-1">Publier le site</a>
-      <a href="https://bikoue.jsph.site" target="_blank" class="block px-3 py-2 rounded-lg hover:bg-slate-800 text-sm">Voir le site en ligne ↗</a>
-      {% else %}
-      <a href="{{ url_for('public.index') }}" target="_blank" class="block px-3 py-2 rounded-lg hover:bg-slate-800 text-sm">Voir le site ↗</a>
+      {% if not config.LOCAL_ADMIN %}
+      <span class="group">Réception</span>
+      <a href="{{ url_for('admin.list_messages') }}" class="{{ 'active' if request.endpoint == 'admin.list_messages' else '' }}">Messages</a>
       {% endif %}
-      <a href="{{ url_for('auth.logout') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 text-sm">Se déconnecter</a>
+    </nav>
+    <div class="adm-foot">
+      {% if config.LOCAL_ADMIN %}
+      <a href="{{ url_for('admin.publish') }}" class="btn btn-green">Publier le site</a>
+      <a href="https://bikoue.jsph.site" target="_blank" rel="noopener" class="link">Voir le site en ligne &nearr;</a>
+      {% else %}
+      <a href="{{ url_for('public.index') }}" target="_blank" class="link">Voir le site &nearr;</a>
+      <a href="{{ url_for('auth.logout') }}" class="link">Se déconnecter</a>
+      {% endif %}
     </div>
   </aside>
 
-  <div class="flex-1 flex flex-col min-w-0">
-    <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6">
-      <p class="font-display font-semibold">{% block page_title %}{% endblock %}</p>
-      <button id="theme-toggle" type="button" aria-label="Changer de thème" class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700">
-        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z"/></svg>
-        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-      </button>
+  <div class="adm-main">
+    <header class="adm-top">
+      <div style="display:flex;align-items:center;gap:.8rem">
+        <button type="button" class="icon-btn adm-menu-btn" id="adm-menu" aria-label="Menu">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <h1>{% block page_title %}{% endblock %}</h1>
+      </div>
+      <div class="tools">
+        <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+          <svg class="i-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.35 15.35A9 9 0 018.65 3.65 9 9 0 1020.35 15.35z"/></svg>
+          <svg class="i-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4l1.4-1.4"/></svg>
+        </button>
+      </div>
     </header>
 
-    <main class="flex-1 p-4 sm:p-6 max-w-5xl w-full">
+    <main class="adm-content">
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="mb-6 space-y-2">
-          {% for category, message in messages %}
-          <div class="px-4 py-3 rounded-lg text-sm {{ 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' if category == 'success' else ('bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' if category == 'error' else 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300') }}">
-            {{ message }}
-          </div>
-          {% endfor %}
+        <div class="alerts">
+          {% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
         </div>
         {% endif %}
       {% endwith %}
-
       {% block content %}{% endblock %}
     </main>
   </div>
 </div>
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var dark = document.documentElement.classList.toggle("dark");
+    try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+  });
+  var side = document.getElementById("adm-side");
+  document.getElementById("adm-menu").addEventListener("click", function () { side.classList.toggle("open"); });
+  document.querySelector(".adm-content").addEventListener("click", function () { side.classList.remove("open"); });
+</script>
 </body>
 </html>

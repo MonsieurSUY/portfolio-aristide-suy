@@ -31,6 +31,30 @@
     });
   }
 
+  /* ----- Formulaire de contact (Formspree) ----- */
+  $$("form[data-formspree]").forEach(function (form) {
+    var status = $(".form-status", form), button = $("button[type=submit]", form);
+    form.addEventListener("submit", function (e) {
+      if (!window.fetch) return; // sans JS moderne : envoi classique vers Formspree
+      e.preventDefault();
+      button.disabled = true;
+      status.className = "form-status";
+      status.textContent = form.getAttribute("data-sending");
+      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (res) {
+          if (!res.ok) throw new Error("http " + res.status);
+          form.reset();
+          status.classList.add("ok");
+          status.textContent = form.getAttribute("data-success");
+        })
+        .catch(function () {
+          status.classList.add("err");
+          status.textContent = form.getAttribute("data-error");
+        })
+        .then(function () { button.disabled = false; });
+    });
+  });
+
   /* ----- Barre de progression, en-tête, frise ----- */
   var bar = $(".scroll-progress"), timeline = $(".timeline"), ticking = false;
   var links = $$(".nav-links a, .mobile-menu a");
