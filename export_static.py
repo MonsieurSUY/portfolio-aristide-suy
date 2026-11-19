@@ -73,7 +73,19 @@ def main():
     write(DIST / "vercel.json", """{
   "cleanUrls": true,
   "redirects": [
-    { "source": "/favicon.ico", "destination": "/static/img/favicon.svg", "permanent": false }
+    { "source": "/favicon.ico", "destination": "/static/img/favicon.svg", "permanent": false },
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "www.bikoue.jsph.site" }], "destination": "https://bikoue.jsph.site/$1", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
   ]
 }
 """)
