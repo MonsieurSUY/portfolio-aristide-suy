@@ -70,14 +70,8 @@ def main(argv):
         shutil.copy(ROOT / "deploy" / "vercel-project.json", DIST / ".vercel" / "project.json")
         vercel = find_vercel()
         if not vercel:
-            print("ÉCHEC : la commande 'vercel' est introuvable. Installez-la avec : npm i -g vercel")
-            appdata = Path(os.environ.get("APPDATA", ""))
-            try:
-                listing = sorted(p.name for p in (appdata / "npm").iterdir())[:12]
-            except Exception as exc:  # diagnostic only
-                listing = repr(exc)
-            target = appdata / "npm" / "vercel.cmd"
-            print(f"(candidate={str(target)!r} exists={target.exists()} is_file={target.is_file()} which={shutil.which('vercel.cmd')!r})")
+            print("ÉCHEC : l'outil Vercel n'est pas installé sur cette session Windows.")
+            print("Double-cliquez une seule fois sur Connecter_Vercel.bat (dossier du portfolio), puis relancez la publication.")
             ok = False
         elif run(f'"{vercel}" deploy --prod --yes', cwd=DIST):
             print("Site en ligne.")

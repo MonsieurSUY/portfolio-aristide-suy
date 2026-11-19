@@ -44,4 +44,4 @@ $lnk.Save()
 
 Write-Host ""
 Write-Host "Termine. Utilisez l'icone 'Mon Portfolio - Admin' sur le Bureau."
-Write-Host "Pour publier, il faut aussi : npm i -g vercel  puis  vercel login  (une seule fois)."
+Write-Host "Pour publier, double-cliquez aussi une fois sur Connecter_Vercel.bat (installe Vercel et connecte votre compte)."

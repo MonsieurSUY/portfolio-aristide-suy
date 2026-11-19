@@ -19,7 +19,7 @@ Le formulaire de contact est remplacé sur le site en ligne par un bouton « Éc
 
 ## Changer de PC
 
-1. Installer Python 3, Git, Node.js, puis : `npm i -g vercel` et `vercel login` (une fois).
+1. Installer Python 3, Git et Node.js, puis double-cliquer une fois sur `Connecter_Vercel.bat` (installe l'outil Vercel et connecte votre compte, nécessaire pour le bouton « Publier le site »).
 2. `git clone https://github.com/MonsieurSUY/portfolio-aristide-suy.git`
 3. Double-cliquer sur `Installer.bat` : il crée l'environnement, restaure le contenu depuis `content/content.json` et recrée l'icône du Bureau.
 
