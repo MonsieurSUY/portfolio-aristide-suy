@@ -71,6 +71,7 @@ def main(argv):
         vercel = find_vercel()
         if not vercel:
             print("ÉCHEC : la commande 'vercel' est introuvable. Installez-la avec : npm i -g vercel")
+            print(f"(APPDATA={os.environ.get('APPDATA')!r}, PATH={os.environ.get('PATH', '')[:300]!r})")
             ok = False
         elif run(f'"{vercel}" deploy --prod --yes', cwd=DIST):
             print("Site en ligne.")
