@@ -1,4 +1,4 @@
-# Portfolio — Bi Koué Jean Noël Aristide Suy
+# Portfolio - Bi Koué Jean Noël Aristide Suy
 
 Site en ligne : **https://bikoue.jsph.site** (site statique hébergé gratuitement sur Vercel, sans expiration).
 

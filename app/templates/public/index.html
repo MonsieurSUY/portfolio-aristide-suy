@@ -94,7 +94,7 @@
             <div class="flex flex-wrap items-baseline justify-between gap-2">
               <h3 class="font-display font-semibold text-lg">{{ exp.role }} · <span class="text-primary-600 dark:text-primary-400">{{ exp.company }}</span></h3>
               <span class="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                {{ exp.start_date.strftime("%m/%Y") }} — {{ exp.end_date.strftime("%m/%Y") if exp.end_date else t("experience.present") }}
+                {{ exp.start_date.strftime("%m/%Y") }} - {{ exp.end_date.strftime("%m/%Y") if exp.end_date else t("experience.present") }}
               </span>
             </div>
             {% if exp.location %}<p class="text-sm text-slate-500 dark:text-slate-400">{{ exp.location }}</p>{% endif %}
@@ -209,7 +209,7 @@
           <footer class="mt-4 text-sm text-slate-500 dark:text-slate-400">
             <span class="font-semibold text-slate-800 dark:text-slate-200">{{ testimonial.author_name }}</span>
             {% if testimonial.author_role %}, {{ testimonial.author_role }}{% endif %}
-            {% if testimonial.author_company %} — {{ testimonial.author_company }}{% endif %}
+            {% if testimonial.author_company %} - {{ testimonial.author_company }}{% endif %}
           </footer>
         </blockquote>
         {% endfor %}

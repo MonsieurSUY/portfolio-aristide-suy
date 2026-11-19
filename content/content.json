@@ -12,12 +12,12 @@
       "availability_fr": "En poste",
       "availability_en": "Employed",
       "avatar_filename": "avatar-aristide-ca28dd56.png",
-      "cv_filename": "cv-aristide-e09c533f.pdf",
+      "cv_filename": "cv-aristide-62c57e03.pdf",
       "email": "jeanoelsuyaristide@gmail.com",
       "linkedin_url": "",
       "github_url": "",
       "phone": "+225 07 69 59 65 24",
-      "updated_at": "2026-07-23T21:17:49.963827"
+      "updated_at": "2026-11-19T12:19:02.082610"
     }
   ],
   "skill": [
@@ -231,23 +231,23 @@
       "end_date": null,
       "description_fr": "Animation de formations professionnelles en analyse de données et outils décisionnels.",
       "description_en": "Delivering professional training on data analysis and business intelligence tools.",
-      "achievements_fr": "Formation Excel Avancé & Power BI\r\nAnalyse de données & conception de tableaux de bord",
-      "achievements_en": "Advanced Excel & Power BI training\r\nData analysis & dashboard design",
-      "order": 3
+      "achievements_fr": "Pack Office\nExcel Avancé & Power BI\nAnalyse de données & conception de tableaux de bord",
+      "achievements_en": "MS Office\nAdvanced Excel & Power BI\nData analysis & dashboard design",
+      "order": 1
     },
     {
       "id": 3,
-      "role_fr": "Consultant — Banque Mondiale, Projet PHAS",
-      "role_en": "Consultant — World Bank, PHAS Project",
+      "role_fr": "Consultant - Banque Mondiale, Projet PHAS",
+      "role_en": "Consultant - World Bank, PHAS Project",
       "company": "Agence Nationale de la Statistique (ANStat)",
       "location": "Riviera Bonoumin, Abidjan",
       "start_date": "2024-07-01",
-      "end_date": null,
+      "end_date": "2025-12-01",
       "description_fr": "Appui à la collecte et au traitement de données statistiques nationales.",
       "description_en": "Supporting the collection and processing of national statistical data.",
       "achievements_fr": "Collecte et traitement de données (recensement et enquêtes)\r\nCalcul et publication des indicateurs conjoncturels",
       "achievements_en": "Data collection and processing (census and surveys)\r\nComputed and published short-term economic indicators",
-      "order": 1
+      "order": 4
     },
     {
       "id": 4,
@@ -261,7 +261,7 @@
       "description_en": "Statistical monitoring of the clinic's departmental activity.",
       "achievements_fr": "Collecte, traitement et analyse des données des services\r\nProduction de tableaux de bord et de rapports périodiques",
       "achievements_en": "Collected, processed and analyzed departmental data\r\nProduced dashboards and periodic reports",
-      "order": 3
+      "order": 5
     },
     {
       "id": 5,
@@ -275,7 +275,7 @@
       "description_en": "General coordination of the commercial complex's activities.",
       "achievements_fr": "Coordination et supervision des activités des départements\r\nÉlaboration de stratégies commerciales et de gestion",
       "achievements_en": "Coordinated and supervised departmental activities\r\nDeveloped commercial and management strategies",
-      "order": 4
+      "order": 6
     },
     {
       "id": 6,
@@ -289,7 +289,35 @@
       "description_en": "Supported corporate restructuring advisory engagements.",
       "achievements_fr": "Suivi, coordination et évaluation des opérations de restructuration\r\nAnalyse des opérations et processus des entreprises\r\nRédaction de rapports et de comptes rendus de réunions",
       "achievements_en": "Tracked, coordinated and evaluated restructuring operations\r\nAnalyzed company operations and processes\r\nDrafted reports and meeting minutes",
-      "order": 5
+      "order": 7
+    },
+    {
+      "id": 7,
+      "role_fr": "Consultant Adjoint Technique de la Statistique",
+      "role_en": "Assistant Technical Consultant in Statistics",
+      "company": "Agence Nationale de la Statistique (ANStat)",
+      "location": "Riviera Bonoumin, Abidjan",
+      "start_date": "2026-01-01",
+      "end_date": null,
+      "description_fr": "",
+      "description_en": "",
+      "achievements_fr": "Collecte et traitement de données (recensement et enquêtes)\nCalcul et publication des indicateurs conjoncturels",
+      "achievements_en": "Data collection and processing (census and surveys)\nComputed and published short-term economic indicators",
+      "order": 2
+    },
+    {
+      "id": 8,
+      "role_fr": "Membre de la Task-Force - Système d'Information sur le Marché du Travail",
+      "role_en": "Task Force Member - Labour Market Information System",
+      "company": "Observatoire National de l'Emploi et de la Formation (ONEF)",
+      "location": "Abidjan, Côte d'Ivoire",
+      "start_date": "2025-07-01",
+      "end_date": "2026-06-01",
+      "description_fr": "Participation au projet de mise en place du Système d'Information sur le Marché du Travail.",
+      "description_en": "Contributed to the project setting up the national Labour Market Information System.",
+      "achievements_fr": "Création des structures de données au format SDMX\nCollecte de données auprès des institutions et ministères\nVérification de la qualité et mise en ligne des données",
+      "achievements_en": "Built SDMX-format data structures\nCollected data from institutions and ministries\nChecked data quality and published it online",
+      "order": 3
     }
   ],
   "project": [],
@@ -309,7 +337,7 @@
       "institution": "École Nationale Supérieure de Statistique et d'Économie Appliquée (ENSEA)",
       "degree_fr": "Diplôme d'Analyste Statisticien (AS)",
       "degree_en": "Statistical Analyst (AS) Diploma",
-      "year": "2020 – 2023",
+      "year": "2020 - 2023",
       "verification_url": "",
       "category": "diplome",
       "order": 2
@@ -319,7 +347,7 @@
       "institution": "École Nationale Supérieure de Statistique et d'Économie Appliquée (ENSEA)",
       "degree_fr": "Diplôme d'Agent Technique de la Statistique (AT)",
       "degree_en": "Statistical Technical Officer (AT) Diploma",
-      "year": "2019 – 2020",
+      "year": "2019 - 2020",
       "verification_url": "",
       "category": "diplome",
       "order": 3
@@ -346,63 +374,63 @@
     },
     {
       "id": 6,
-      "institution": "OpenClassrooms",
-      "degree_fr": "Gérer un projet digital avec une méthodologie en cascade",
-      "degree_en": "Managing a Digital Project with a Waterfall Methodology",
-      "year": "Janvier 2024",
-      "verification_url": "",
-      "category": "certification",
-      "order": 6
-    },
-    {
-      "id": 7,
-      "institution": "OpenClassrooms",
-      "degree_fr": "Maîtriser les fondamentaux d'Excel & Excel avancé",
-      "degree_en": "Excel Fundamentals & Advanced Excel",
-      "year": "Janvier 2024",
-      "verification_url": "",
-      "category": "certification",
-      "order": 7
-    },
-    {
-      "id": 8,
-      "institution": "OpenClassrooms",
-      "degree_fr": "Réaliser des dashboards avec Power BI",
-      "degree_en": "Building Dashboards with Power BI",
-      "year": "Février 2024",
-      "verification_url": "",
-      "category": "certification",
-      "order": 8
-    },
-    {
-      "id": 9,
-      "institution": "PHASAOC — Volet UEMOA",
-      "degree_fr": "Introduction aux méthodes d'échantillonnage pour les enquêtes auprès des ménages",
-      "degree_en": "Introduction to Sampling Methods for Household Surveys",
-      "year": "Février 2026",
+      "institution": "Comité de Coordination LBCFT",
+      "degree_fr": "Formation de base aux concepts de la LBC/FT/FP",
+      "degree_en": "Basic Training on AML/CFT/CPF Concepts",
+      "year": "29 - 30 septembre 2026",
       "verification_url": "",
       "category": "formation",
       "order": 9
     },
     {
-      "id": 10,
-      "institution": "PHASAOC — Volet UEMOA",
-      "degree_fr": "Mesurer le patrimoine des ménages pour analyser leur vulnérabilité",
-      "degree_en": "Measuring Household Wealth to Assess Vulnerability",
-      "year": "Mars – Avril 2026",
+      "id": 7,
+      "institution": "Comité de Coordination LBCFT",
+      "degree_fr": "Renforcement des capacités techniques des points focaux : maîtrise de l'application de collecte des statistiques en matière de LBC/FT/FP",
+      "degree_en": "Technical capacity building for focal points: mastering the statistics collection application for AML/CFT/CPF",
+      "year": "17 - 19 novembre 2026",
       "verification_url": "",
       "category": "formation",
       "order": 10
     },
     {
-      "id": 11,
-      "institution": "Agence Nationale de la Statistique (ANStat)",
-      "degree_fr": "Renforcement de capacités sur le SDMX/ODP 2.0",
-      "degree_en": "SDMX/ODP 2.0 Capacity Building",
-      "year": "Janvier 2026",
+      "id": 8,
+      "institution": "PHASAOC - Volet UEMOA",
+      "degree_fr": "Introduction aux méthodes d'échantillonnage pour les enquêtes auprès des ménages",
+      "degree_en": "Introduction to Sampling Methods for Household Surveys",
+      "year": "16 - 20 février 2026",
       "verification_url": "",
       "category": "formation",
       "order": 11
+    },
+    {
+      "id": 9,
+      "institution": "PHASAOC - Volet UEMOA",
+      "degree_fr": "Mesurer le patrimoine des ménages à partir d'enquêtes dans les pays à revenu faible et intermédiaire pour analyser leur vulnérabilité",
+      "degree_en": "Measuring Household Wealth from Surveys in Low- and Middle-Income Countries to Analyze Vulnerability",
+      "year": "30 mars - 3 avril 2026",
+      "verification_url": "",
+      "category": "formation",
+      "order": 12
+    },
+    {
+      "id": 10,
+      "institution": "PHASAOC - Volet UEMOA",
+      "degree_fr": "Fonctionnalités avancées de la plateforme ODP 2.0 et de la norme SDMX",
+      "degree_en": "Advanced Features of the ODP 2.0 Platform and the SDMX Standard",
+      "year": "9 - 13 novembre 2026 (Ouagadougou)",
+      "verification_url": "",
+      "category": "formation",
+      "order": 13
+    },
+    {
+      "id": 11,
+      "institution": "Agence Nationale de la Statistique (ANStat)",
+      "degree_fr": "Renforcement de capacités sur le SDMX/ODP 2.0 au profit des points focaux de la Côte d'Ivoire",
+      "degree_en": "SDMX/ODP 2.0 Capacity Building for Côte d'Ivoire Focal Points",
+      "year": "26 - 29 janvier 2026",
+      "verification_url": "",
+      "category": "formation",
+      "order": 14
     }
   ],
   "testimonial": [],

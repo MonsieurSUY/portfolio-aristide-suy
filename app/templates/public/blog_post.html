@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ post.title }} — {{ profile.full_name if profile else "" }}{% endblock %}
+{% block title %}{{ post.title }} - {{ profile.full_name if profile else "" }}{% endblock %}
 {% block description %}{{ post.excerpt }}{% endblock %}
 
 {% block body %}

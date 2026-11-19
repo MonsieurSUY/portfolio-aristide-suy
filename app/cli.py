@@ -32,15 +32,6 @@ def register_cli(app):
         db.session.commit()
         click.echo(f"Compte admin '{username}' créé avec succès.")
 
-    @app.cli.command("seed-content")
-    @with_appcontext
-    def seed_content():
-        """Populate empty tables with the site's starter content. Safe to re-run."""
-        from seed import run_seed
-
-        run_seed()
-        click.echo("Contenu inséré (les tables déjà remplies n'ont pas été touchées).")
-
     @app.cli.command("export-content")
     @with_appcontext
     def export_content_cmd():

@@ -26,7 +26,7 @@
         <td class="px-4 py-3 text-slate-400">{{ skill.order }}</td>
         <td class="px-4 py-3 font-medium">{{ skill.name_fr }} <span class="text-slate-400">/ {{ skill.name_en }}</span></td>
         <td class="px-4 py-3">{{ skill.category_fr }}</td>
-        <td class="px-4 py-3">{{ skill.level or "—" }}</td>
+        <td class="px-4 py-3">{{ skill.level or "-" }}</td>
         <td class="px-4 py-3 text-right space-x-3">
           <a href="{{ url_for('admin.edit_skill', skill_id=skill.id) }}" class="text-primary-600 dark:text-primary-400 hover:underline">Modifier</a>
           {{ delete_button('admin.delete_skill', {'skill_id': skill.id}, "Supprimer cette compétence") }}

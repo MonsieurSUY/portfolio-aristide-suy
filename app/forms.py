@@ -59,7 +59,7 @@ class SkillForm(FlaskForm):
     category_en = StringField("Catégorie (EN)", validators=[DataRequired(), Length(max=80)])
     level = SelectField(
         "Niveau",
-        choices=[("", "—"), ("debutant", "Débutant"), ("confirme", "Confirmé"), ("expert", "Expert")],
+        choices=[("", "-"), ("debutant", "Débutant"), ("confirme", "Confirmé"), ("expert", "Expert")],
         validators=[Optional()],
     )
     order = IntegerField("Ordre", default=0, validators=[Optional()])
