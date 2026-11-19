@@ -13,7 +13,7 @@ from flask import Flask, request, session, g
 
 from app.config import config_by_name
 from app.extensions import db, migrate, login_manager, limiter
-from app.i18n import get_locale, t
+from app.i18n import get_locale, t, month_year
 
 ALLOWED_MD_TAGS = [
     "p", "br", "strong", "em", "ul", "ol", "li", "a", "h1", "h2", "h3", "h4",
@@ -60,6 +60,7 @@ def create_app(config_name=None):
         g.lang = get_locale()
 
     app.jinja_env.globals["t"] = t
+    app.jinja_env.globals["month_year"] = month_year
 
     @app.context_processor
     def inject_globals():

@@ -1,251 +1,282 @@
 {% extends "base.html" %}
 
+{% set palette = ["teal", "lav", "peach", "sky"] %}
+
 {% block body %}
 {% include "public/_nav.html" %}
 
 <main id="main-content">
 
   <!-- ============ HERO ============ -->
-  <section class="relative pt-32 pb-24 overflow-hidden">
-    <div class="absolute inset-0 -z-10 text-primary-100 dark:text-slate-900 bg-dot-grid opacity-60"></div>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div data-aos="fade-up">
+  <section id="top" class="hero">
+    <div class="hero-dots" aria-hidden="true"></div>
+    <svg class="hero-chart" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="chart-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" style="stop-color:var(--teal)"/><stop offset="0.5" style="stop-color:var(--lav)"/><stop offset="1" style="stop-color:var(--peach)"/>
+        </linearGradient>
+        <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" style="stop-color:var(--lav);stop-opacity:0.28"/><stop offset="1" style="stop-color:var(--lav);stop-opacity:0"/>
+        </linearGradient>
+      </defs>
+      <path class="area" d="M0,250 C120,240 180,200 280,205 C380,210 420,150 520,140 C620,130 660,185 760,170 C860,155 900,80 1000,70 C1090,62 1150,40 1200,25 L1200,300 L0,300 Z"/>
+      <path class="line" pathLength="1" d="M0,250 C120,240 180,200 280,205 C380,210 420,150 520,140 C620,130 660,185 760,170 C860,155 900,80 1000,70 C1090,62 1150,40 1200,25"/>
+      <path class="line" pathLength="1" style="animation-delay:1.1s;stroke-width:2;opacity:.5" d="M0,280 C150,270 250,245 360,240 C470,235 560,205 680,200 C800,195 900,150 1010,128 C1100,112 1160,98 1200,88"/>
+    </svg>
+    <div class="particles" aria-hidden="true">
+      {% for n in range(1, 15) %}
+      <span style="left:{{ (n * 37) % 100 }}%;--s:{{ 3 + (n % 4) * 1.6 }}px;--d:{{ 15 + (n % 5) * 4 }}s;--delay:-{{ n * 2.3 }}s;--x:{{ (-1 if n % 2 else 1) * (20 + n * 4) }}px;--c:var(--{{ palette[n % 4] }}-rgb)"></span>
+      {% endfor %}
+    </div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy">
         {% if profile and profile.availability %}
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 mb-5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-          {{ profile.availability }}
-        </span>
+        <span class="badge"><i></i>{{ profile.availability }}</span>
         {% endif %}
-        <h1 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-          {{ profile.full_name if profile else "" }}
+        <h1>
+          {% for word in (profile.full_name if profile else "").split() %}<span class="word"><span style="--i:{{ loop.index0 }}">{{ word }}</span></span>{% endfor %}
         </h1>
-        <p class="mt-2 text-xl sm:text-2xl font-display font-semibold text-gradient">
-          {{ profile.title if profile else "" }}
-        </p>
-        <p class="mt-5 text-lg text-slate-600 dark:text-slate-300 max-w-xl">
-          {{ profile.tagline if profile else "" }}
-        </p>
-        <div class="mt-8 flex flex-wrap gap-4">
+        <p class="hero-title">{{ profile.title if profile else "" }}</p>
+        {% if profile and profile.tagline %}<p class="hero-tagline">{{ profile.tagline }}</p>{% endif %}
+        <div class="hero-actions">
           {% if profile and profile.cv_filename %}
-          <a href="{{ cv_url }}"
-             class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors shadow-sm shadow-primary-600/30">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
+          <a href="{{ cv_url }}" class="btn btn-primary" download>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
             {{ t("hero.download_cv") }}
           </a>
           {% endif %}
-          <a href="#contact"
-             class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border-2 border-slate-300 dark:border-slate-700 font-semibold hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-            {{ t("hero.contact_me") }}
-          </a>
+          <a href="#contact" class="btn btn-ghost">{{ t("hero.contact_me") }}</a>
         </div>
       </div>
-      <div class="flex justify-center md:justify-end" data-aos="fade-up" data-aos-delay="100">
-        <img
-          src="{% if profile and profile.avatar_filename %}{{ url_for('static', filename='uploads/' + profile.avatar_filename) }}{% else %}{{ url_for('static', filename='img/avatar-placeholder.svg') }}{% endif %}"
-          alt="{{ "Photo de profil de " ~ profile.full_name if (g.lang == 'fr' and profile) else ("Profile photo of " ~ profile.full_name if profile else "Profile photo") }}"
-          class="w-56 h-56 sm:w-72 sm:h-72 rounded-full object-cover shadow-2xl ring-4 ring-white dark:ring-slate-900"
-          loading="eager" width="288" height="288">
+
+      <div class="portrait">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="frame">
+          <img src="{% if profile and profile.avatar_filename %}{{ url_for('static', filename='uploads/' + profile.avatar_filename) }}{% else %}{{ url_for('static', filename='img/avatar-placeholder.svg') }}{% endif %}"
+               alt="{{ ('Photo de profil de ' if g.lang == 'fr' else 'Profile photo of ') ~ (profile.full_name if profile else '') }}"
+               width="400" height="400" loading="eager" fetchpriority="high">
+        </div>
+        {% for chip in hero_chips %}
+        <span class="float-chip c-{{ palette[(loop.index0 + 1) % 4] }}">{{ chip }}</span>
+        {% endfor %}
       </div>
+    </div>
+    <a href="#about" class="scroll-hint" aria-label="{{ t('hero.scroll') }}"><i></i>{{ t("hero.scroll") }}</a>
+  </section>
+
+  {% if tools %}
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {% for copy in range(2) %}<div style="display:flex">{% for tool in tools %}<span>{{ tool }}</span>{% endfor %}</div>{% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ============ A PROPOS ============ -->
+  <section id="about" class="section">
+    <div class="container about-grid">
+      <div class="reveal reveal-left">
+        <p class="eyebrow">{{ t("eyebrow.about") }}</p>
+        <div class="about-text">{{ (profile.about if profile else "") | markdown | safe }}</div>
+      </div>
+      {% if stats %}
+      <div class="stats">
+        {% for value, label, suffix in stats %}
+        <div class="reveal" style="--i:{{ loop.index0 }}">
+          <div class="stat glass lift c-{{ palette[loop.index0 % 4] }}">
+            <b data-count="{{ value }}" data-suffix="{{ suffix }}">{{ value }}{{ suffix }}</b>
+            <span>{{ t(label) }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
   </section>
 
-  <!-- ============ ABOUT ============ -->
-  <section id="about" class="py-20 scroll-mt-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6" data-aos="fade-up">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-6">{{ t("about.title") }}</h2>
-      <div class="prose prose-slate dark:prose-invert max-w-none prose-p:leading-relaxed">
-        {{ (profile.about if profile else "") | markdown | safe }}
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SKILLS ============ -->
-  <section id="skills" class="py-20 bg-slate-50 dark:bg-slate-900/40 scroll-mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center" data-aos="fade-up">{{ t("skills.title") }}</h2>
-      <div class="grid sm:grid-cols-2 gap-8">
+  <!-- ============ COMPETENCES ============ -->
+  <section id="skills" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.skills") }}</p>
+        <h2>{{ t("skills.title") }}</h2>
+      </header>
+      <div class="skills-grid">
         {% for category, items in skills_by_category.items() %}
-        <div data-aos="fade-up">
-          <h3 class="font-display font-semibold text-sm uppercase tracking-wide text-primary-600 dark:text-primary-400 mb-3">{{ category }}</h3>
-          <div class="flex flex-wrap gap-2">
-            {% for skill in items %}
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
-              {{ skill.name }}
-              {% if skill.level %}
-              <span class="text-xs text-slate-400 dark:text-slate-500">· {{ t("skills.level." ~ skill.level) }}</span>
-              {% endif %}
-            </span>
-            {% endfor %}
-          </div>
+        <div class="reveal" style="--i:{{ loop.index0 }}">
+          <article class="skill-card glass lift c-{{ palette[loop.index0 % 4] }}">
+            <h3><small>{{ "%02d"|format(loop.index) }}</small>{{ category }}</h3>
+            <div class="chips">
+              {% for skill in items %}
+              <span class="chip">{{ skill.name }}{% if skill.level %} <em>{{ t("skills.level." ~ skill.level) }}</em>{% endif %}</span>
+              {% endfor %}
+            </div>
+          </article>
         </div>
         {% endfor %}
       </div>
     </div>
   </section>
 
-  <!-- ============ EXPERIENCE ============ -->
-  <section id="experience" class="py-20 scroll-mt-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center" data-aos="fade-up">{{ t("experience.title") }}</h2>
-      <div class="space-y-10 border-l-2 border-transparent">
+  <!-- ============ PARCOURS ============ -->
+  <section id="experience" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.experience") }}</p>
+        <h2>{{ t("experience.title") }}</h2>
+      </header>
+      <div class="timeline">
         {% for exp in experiences %}
-        <div class="relative pl-8 text-primary-500 timeline-item" data-aos="fade-up">
-          <div class="text-slate-800 dark:text-slate-200">
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="font-display font-semibold text-lg">{{ exp.role }} · <span class="text-primary-600 dark:text-primary-400">{{ exp.company }}</span></h3>
-              <span class="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                {{ exp.start_date.strftime("%m/%Y") }} - {{ exp.end_date.strftime("%m/%Y") if exp.end_date else t("experience.present") }}
-              </span>
-            </div>
-            {% if exp.location %}<p class="text-sm text-slate-500 dark:text-slate-400">{{ exp.location }}</p>{% endif %}
-            {% if exp.description %}<p class="mt-2 text-slate-600 dark:text-slate-300">{{ exp.description }}</p>{% endif %}
+        <article class="t-item reveal {{ 'reveal-left' if loop.index is odd else 'reveal-right' }} c-{{ palette[loop.index0 % 4] }}">
+          <div class="t-card glass">
+            <span class="t-period">{% if not exp.end_date %}<i class="t-now"></i>{% endif %}{{ month_year(exp.start_date) }} - {{ month_year(exp.end_date) if exp.end_date else t("experience.present") }}</span>
+            <h3>{{ exp.role }}</h3>
+            <p class="t-company">{{ exp.company }}</p>
+            {% if exp.location %}<p class="t-place">{{ exp.location }}</p>{% endif %}
+            {% if exp.description %}<p class="t-desc">{{ exp.description }}</p>{% endif %}
             {% if exp.achievements %}
-            <ul class="mt-3 space-y-1 list-disc list-inside text-sm text-slate-600 dark:text-slate-300">
-              {% for item in exp.achievements %}
-              <li>{{ item }}</li>
-              {% endfor %}
-            </ul>
+            <ul class="t-list">{% for item in exp.achievements %}<li>{{ item }}</li>{% endfor %}</ul>
             {% endif %}
           </div>
-        </div>
+        </article>
         {% endfor %}
+        <span class="t-rail" aria-hidden="true"></span>
+        <span class="t-progress" aria-hidden="true"></span>
       </div>
     </div>
   </section>
 
-  <!-- ============ PROJECTS ============ -->
+  <!-- ============ PROJETS ============ -->
   {% if projects %}
-  <section id="projects" class="py-20 bg-slate-50 dark:bg-slate-900/40 scroll-mt-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center" data-aos="fade-up">{{ t("projects.title") }}</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <section id="projects" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.projects") }}</p>
+        <h2>{{ t("projects.title") }}</h2>
+      </header>
+      <div class="cards-grid">
         {% for project in projects %}
-        <div class="group flex flex-col rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg transition-shadow" data-aos="fade-up">
-          <img
-            src="{% if project.image_filename %}{{ url_for('static', filename='uploads/' + project.image_filename) }}{% else %}{{ url_for('static', filename='img/project-placeholder.svg') }}{% endif %}"
-            alt="{{ project.title }}" loading="lazy" class="w-full h-44 object-cover" width="400" height="176">
-          <div class="p-5 flex flex-col flex-1">
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="font-display font-semibold text-lg text-slate-900 dark:text-white">{{ project.title }}</h3>
-              {% if project.project_date %}<span class="text-xs text-slate-400 whitespace-nowrap">{{ project.project_date.strftime("%Y") }}</span>{% endif %}
-            </div>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">{{ project.short_description }}</p>
-
-            {% if project.technologies %}
-            <div class="mt-3 flex flex-wrap gap-1.5">
-              {% for tech in project.technologies %}
-              <span class="text-xs px-2 py-0.5 rounded bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300">{{ tech }}</span>
-              {% endfor %}
-            </div>
+        <div class="reveal" style="--i:{{ loop.index0 }}">
+          <article class="card glass lift c-{{ palette[loop.index0 % 4] }}">
+            {% if project.image_filename %}
+            <div class="card-img"><img src="{{ url_for('static', filename='uploads/' + project.image_filename) }}" alt="{{ project.title }}" loading="lazy" width="640" height="360"></div>
             {% endif %}
-
-            {% if project.long_description %}
-            <details class="mt-3 text-sm">
-              <summary class="text-primary-600 dark:text-primary-400 font-medium">{{ t("projects.more") }}</summary>
-              <p class="mt-2 text-slate-600 dark:text-slate-300">{{ project.long_description }}</p>
-            </details>
-            {% endif %}
-
-            <div class="mt-auto pt-4 flex gap-4 text-sm font-medium">
-              {% if project.demo_url %}
-              <a href="{{ project.demo_url }}" target="_blank" rel="noopener noreferrer" class="text-primary-600 dark:text-primary-400 hover:underline">{{ t("projects.demo") }} ↗</a>
+            <div class="card-body">
+              {% if project.project_date %}<span class="card-meta">{{ project.project_date.strftime("%Y") }}</span>{% endif %}
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.short_description }}</p>
+              {% if project.technologies %}
+              <div class="chips">{% for tech in project.technologies %}<span class="chip">{{ tech }}</span>{% endfor %}</div>
               {% endif %}
-              {% if project.source_url %}
-              <a href="{{ project.source_url }}" target="_blank" rel="noopener noreferrer" class="text-primary-600 dark:text-primary-400 hover:underline">{{ t("projects.source") }} ↗</a>
+              {% if project.long_description %}
+              <details><summary>{{ t("projects.more") }}</summary><p>{{ project.long_description }}</p></details>
               {% endif %}
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
-
-  <!-- ============ EDUCATION ============ -->
-  <section id="education" class="py-20 scroll-mt-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center" data-aos="fade-up">{{ t("education.title") }}</h2>
-      <div class="space-y-10">
-        {% for category in ["diplome", "certification", "formation"] %}
-        {% set edu_items = education_by_category.get(category, []) %}
-        {% if edu_items %}
-        <div data-aos="fade-up">
-          <h3 class="font-display font-semibold text-sm uppercase tracking-wide text-primary-600 dark:text-primary-400 mb-4">
-            {{ t("education.category." ~ category) }}
-          </h3>
-          <ul class="space-y-4">
-            {% for edu in edu_items %}
-            <li class="flex items-start justify-between gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-800">
-              <div>
-                <p class="font-display font-semibold text-slate-900 dark:text-white">{{ edu.degree }}</p>
-                <p class="text-sm text-slate-500 dark:text-slate-400">{{ edu.institution }}{% if edu.year %} · {{ edu.year }}{% endif %}</p>
+              <div class="card-links">
+                {% if project.demo_url %}<a href="{{ project.demo_url }}" target="_blank" rel="noopener noreferrer">{{ t("projects.demo") }} &nearr;</a>{% endif %}
+                {% if project.source_url %}<a href="{{ project.source_url }}" target="_blank" rel="noopener noreferrer">{{ t("projects.source") }} &nearr;</a>{% endif %}
               </div>
-              {% if edu.verification_url %}
-              <a href="{{ edu.verification_url }}" target="_blank" rel="noopener noreferrer"
-                 class="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors">
-                {{ t("education.verify") }} ↗
-              </a>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
+            </div>
+          </article>
         </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TESTIMONIALS ============ -->
-  {% if testimonials %}
-  <section id="testimonials" class="py-20 bg-slate-50 dark:bg-slate-900/40 scroll-mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center" data-aos="fade-up">{{ t("testimonials.title") }}</h2>
-      <div class="grid sm:grid-cols-2 gap-6">
-        {% for testimonial in testimonials %}
-        <blockquote class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900" data-aos="fade-up">
-          <p class="text-slate-700 dark:text-slate-200 italic">&ldquo;{{ testimonial.quote }}&rdquo;</p>
-          <footer class="mt-4 text-sm text-slate-500 dark:text-slate-400">
-            <span class="font-semibold text-slate-800 dark:text-slate-200">{{ testimonial.author_name }}</span>
-            {% if testimonial.author_role %}, {{ testimonial.author_role }}{% endif %}
-            {% if testimonial.author_company %} - {{ testimonial.author_company }}{% endif %}
-          </footer>
-        </blockquote>
         {% endfor %}
       </div>
     </div>
   </section>
   {% endif %}
 
-  <!-- ============ INTERESTS ============ -->
-  <section id="interests" class="py-20 scroll-mt-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10" data-aos="fade-up">{{ t("interests.title") }}</h2>
-      <div class="flex flex-wrap justify-center gap-4">
-        {% for interest in interests %}
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-800 text-sm font-medium" data-aos="fade-up">
-          <span aria-hidden="true">{{ interest.icon }}</span> {{ interest.name }}
-        </span>
+  <!-- ============ FORMATION ============ -->
+  <section id="education" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.education") }}</p>
+        <h2>{{ t("education.title") }}</h2>
+      </header>
+      {% set edu_colors = {"diplome": "teal", "certification": "lav", "formation": "peach"} %}
+      {% for category in ["diplome", "certification", "formation"] %}
+      {% set edu_items = education_by_category.get(category, []) %}
+      {% if edu_items %}
+      <div class="edu-group c-{{ edu_colors[category] }}">
+        <div class="edu-head reveal"><h3>{{ t("education.category." ~ category) }}</h3><span class="count">{{ edu_items|length }}</span></div>
+        <div class="edu-grid">
+          {% for edu in edu_items %}
+          <div class="reveal" style="--i:{{ loop.index0 % 3 }}">
+            <article class="edu-card glass lift">
+              {% if edu.year %}<span class="edu-year">{{ edu.year }}</span>{% endif %}
+              <h4>{{ edu.degree }}</h4>
+              <p>{{ edu.institution }}</p>
+              {% if edu.verification_url %}<a class="verify" href="{{ edu.verification_url }}" target="_blank" rel="noopener noreferrer">{{ t("education.verify") }} &nearr;</a>{% endif %}
+            </article>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ============ TEMOIGNAGES ============ -->
+  {% if testimonials %}
+  <section id="testimonials" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.testimonials") }}</p>
+        <h2>{{ t("testimonials.title") }}</h2>
+      </header>
+      <div class="cards-grid">
+        {% for testimonial in testimonials %}
+        <div class="reveal" style="--i:{{ loop.index0 }}">
+          <figure class="quote glass lift c-{{ palette[loop.index0 % 4] }}" style="margin:0">
+            <blockquote>{{ testimonial.quote }}</blockquote>
+            <figcaption><b>{{ testimonial.author_name }}</b>{% if testimonial.author_role %}, {{ testimonial.author_role }}{% endif %}{% if testimonial.author_company %} - {{ testimonial.author_company }}{% endif %}</figcaption>
+          </figure>
+        </div>
         {% endfor %}
       </div>
     </div>
   </section>
+  {% endif %}
+
+  <!-- ============ INTERETS ============ -->
+  {% if interests %}
+  <section id="interests" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.interests") }}</p>
+        <h2>{{ t("interests.title") }}</h2>
+      </header>
+      <div class="bubbles">
+        {% for interest in interests %}
+        <div class="reveal" style="--i:{{ loop.index0 }}">
+          <span class="bubble glass c-{{ palette[loop.index0 % 4] }}" style="--i:{{ loop.index0 }}"><span aria-hidden="true">{{ interest.icon }}</span>{{ interest.name }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
 
   <!-- ============ BLOG ============ -->
   {% if blog_posts %}
-  <section id="blog" class="py-20 bg-slate-50 dark:bg-slate-900/40 scroll-mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center" data-aos="fade-up">{{ t("blog.title") }}</h2>
-      <div class="grid sm:grid-cols-2 gap-6">
+  <section id="blog" class="section">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow">{{ t("eyebrow.blog") }}</p>
+        <h2>{{ t("blog.title") }}</h2>
+      </header>
+      <div class="cards-grid">
         {% for post in blog_posts %}
-        <a href="{{ post_url(post.slug) }}"
-           class="block p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-lg transition-shadow" data-aos="fade-up">
-          <p class="text-xs text-slate-400">{{ post.created_at.strftime("%d/%m/%Y") }}</p>
-          <h3 class="font-display font-semibold text-lg text-slate-900 dark:text-white mt-1">{{ post.title }}</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">{{ post.excerpt }}</p>
-          <span class="inline-block mt-3 text-sm font-medium text-primary-600 dark:text-primary-400">{{ t("blog.read_more") }} →</span>
-        </a>
+        <div class="reveal" style="--i:{{ loop.index0 }}">
+          <a href="{{ post_url(post.slug) }}" class="card glass lift c-{{ palette[loop.index0 % 4] }}" style="height:100%">
+            <div class="card-body">
+              <span class="card-meta">{{ post.created_at.strftime("%d/%m/%Y") }}</span>
+              <h3>{{ post.title }}</h3>
+              <p>{{ post.excerpt }}</p>
+              <span class="card-links"><span style="color:var(--c-ink)">{{ t("blog.read_more") }} &rarr;</span></span>
+            </div>
+          </a>
+        </div>
         {% endfor %}
       </div>
     </div>
@@ -253,85 +284,54 @@
   {% endif %}
 
   <!-- ============ CONTACT ============ -->
-  <section id="contact" class="py-20 scroll-mt-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2 text-center" data-aos="fade-up">{{ t("contact.title") }}</h2>
-      <p class="text-center text-slate-500 dark:text-slate-400 mb-10" data-aos="fade-up">{{ t("contact.subtitle") }}</p>
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-card reveal">
+        <header class="section-head">
+          <p class="eyebrow">{{ t("eyebrow.contact") }}</p>
+          <h2>{{ t("contact.title") }}</h2>
+          <p class="section-sub">{{ t("contact.subtitle") }}</p>
+        </header>
 
-      {% if static_export %}
-      {% if profile and profile.email %}
-      <div class="text-center" data-aos="fade-up">
-        <a href="mailto:{{ profile.email }}?subject={{ t('contact.mailto_subject') | urlencode }}"
-           class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        {% if static_export %}
+        {% if profile and profile.email %}
+        <a href="mailto:{{ profile.email }}?subject={{ t('contact.mailto_subject') | urlencode }}" class="btn btn-primary">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           {{ t("contact.write_me") }}
         </a>
-        <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">{{ profile.email }}</p>
-      </div>
-      {% endif %}
-      {% else %}
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="mb-6 space-y-2">
-          {% for category, message in messages %}
-          <div class="px-4 py-3 rounded-lg text-sm {{ 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' if category == 'success' else 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300' }}" role="alert">
-            {{ message }}
-          </div>
-          {% endfor %}
-        </div>
+        <span class="contact-email">{{ profile.email }}</span>
         {% endif %}
-      {% endwith %}
+        {% else %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}<div class="flash {{ category }}" role="alert">{{ message }}</div>{% endfor %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('public.contact') }}" class="form" novalidate>
+          {{ contact_form.hidden_tag() }}
+          <div><label for="{{ contact_form.name.id }}">{{ t("contact.name") }}</label>{{ contact_form.name(id=contact_form.name.id, required=true) }}</div>
+          <div><label for="{{ contact_form.email.id }}">{{ t("contact.email") }}</label>{{ contact_form.email(id=contact_form.email.id, required=true, type="email") }}</div>
+          <div class="full"><label for="{{ contact_form.subject.id }}">{{ t("contact.subject") }}</label>{{ contact_form.subject(id=contact_form.subject.id) }}</div>
+          <div class="full"><label for="{{ contact_form.message.id }}">{{ t("contact.message") }}</label>{{ contact_form.message(id=contact_form.message.id, rows=5, required=true) }}</div>
+          <div class="full" style="text-align:center"><button type="submit" class="btn btn-primary">{{ t("contact.send") }}</button></div>
+        </form>
+        {% endif %}
 
-      <form method="POST" action="{{ url_for('public.contact') }}" class="grid sm:grid-cols-2 gap-5" data-aos="fade-up" novalidate>
-        {{ contact_form.hidden_tag() }}
-        <div class="sm:col-span-1">
-          <label for="{{ contact_form.name.id }}" class="block text-sm font-medium mb-1">{{ t("contact.name") }}</label>
-          {{ contact_form.name(id=contact_form.name.id, class_="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500", required=true) }}
+        {% if profile and (profile.email or profile.linkedin_url or profile.github_url or profile.phone) %}
+        <div class="social-row">
+          {% if profile.phone %}
+          <a href="tel:{{ profile.phone.replace(' ', '') }}" aria-label="{{ t('contact.call') }}" title="{{ profile.phone }}"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.97.76l1.1 4.4a1 1 0 01-.27.95l-1.7 1.7a16 16 0 006.6 6.6l1.7-1.7a1 1 0 01.95-.27l4.4 1.1a1 1 0 01.76.97V19a2 2 0 01-2 2h-1C9.16 21 3 14.84 3 7V6z"/></svg></a>
+          {% endif %}
+          {% if profile.email %}
+          <a href="mailto:{{ profile.email }}" aria-label="Email"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
+          {% endif %}
+          {% if profile.linkedin_url %}
+          <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.11 20.45H3.56V9h3.55v11.45z"/></svg></a>
+          {% endif %}
+          {% if profile.github_url %}
+          <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.36 1.12 2.94.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.13-4.56-5.02 0-1.11.38-2.02 1-2.73-.1-.26-.44-1.3.1-2.71 0 0 .82-.27 2.7 1.04a9.15 9.15 0 014.92 0c1.88-1.31 2.7-1.04 2.7-1.04.54 1.41.2 2.45.1 2.71.62.71 1 1.62 1 2.73 0 3.9-2.34 4.76-4.57 5.01.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.81 0 .28.18.6.69.5A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+          {% endif %}
         </div>
-        <div class="sm:col-span-1">
-          <label for="{{ contact_form.email.id }}" class="block text-sm font-medium mb-1">{{ t("contact.email") }}</label>
-          {{ contact_form.email(id=contact_form.email.id, class_="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500", required=true, type="email") }}
-        </div>
-        <div class="sm:col-span-2">
-          <label for="{{ contact_form.subject.id }}" class="block text-sm font-medium mb-1">{{ t("contact.subject") }}</label>
-          {{ contact_form.subject(id=contact_form.subject.id, class_="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500") }}
-        </div>
-        <div class="sm:col-span-2">
-          <label for="{{ contact_form.message.id }}" class="block text-sm font-medium mb-1">{{ t("contact.message") }}</label>
-          {{ contact_form.message(id=contact_form.message.id, rows=5, class_="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-primary-500", required=true) }}
-        </div>
-        <div class="sm:col-span-2">
-          <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">
-            {{ t("contact.send") }}
-          </button>
-        </div>
-      </form>
-      {% endif %}
-
-      {% if profile and (profile.email or profile.linkedin_url or profile.github_url or profile.phone) %}
-      <div class="mt-10 flex flex-wrap justify-center gap-4" data-aos="fade-up">
-        {% if profile.email %}
-        <a href="mailto:{{ profile.email }}" aria-label="Email" class="w-11 h-11 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        </a>
-        {% endif %}
-        {% if profile.linkedin_url %}
-        <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-11 h-11 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.11 20.45H3.56V9h3.55v11.45z"/></svg>
-        </a>
-        {% endif %}
-        {% if profile.github_url %}
-        <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="w-11 h-11 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.36 1.12 2.94.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.13-4.56-5.02 0-1.11.38-2.02 1-2.73-.1-.26-.44-1.3.1-2.71 0 0 .82-.27 2.7 1.04a9.15 9.15 0 014.92 0c1.88-1.31 2.7-1.04 2.7-1.04.54 1.41.2 2.45.1 2.71.62.71 1 1.62 1 2.73 0 3.9-2.34 4.76-4.57 5.01.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.81 0 .28.18.6.69.5A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg>
-        </a>
-        {% endif %}
-        {% if profile.phone %}
-        <a href="tel:{{ profile.phone }}" aria-label="{{ 'Téléphone' if g.lang == 'fr' else 'Phone' }}" class="w-11 h-11 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.97.76l1.1 4.4a1 1 0 01-.27.95l-1.7 1.7a16 16 0 006.6 6.6l1.7-1.7a1 1 0 01.95-.27l4.4 1.1a1 1 0 01.76.97V19a2 2 0 01-2 2h-1C9.16 21 3 14.84 3 7V6z"/></svg>
-        </a>
         {% endif %}
       </div>
-      {% endif %}
     </div>
   </section>
 

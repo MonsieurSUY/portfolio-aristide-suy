@@ -72,7 +72,26 @@ TRANSLATIONS = {
     },
 
     "footer.rights": {"fr": "Tous droits réservés.", "en": "All rights reserved."},
-    "footer.made_with": {"fr": "Conçu avec Flask & Tailwind CSS", "en": "Built with Flask & Tailwind CSS"},
+    "footer.made_with": {"fr": "Conçu avec soin", "en": "Crafted with care"},
+    "footer.back_top": {"fr": "Haut de page", "en": "Back to top"},
+
+    "skip": {"fr": "Aller au contenu", "en": "Skip to content"},
+    "menu": {"fr": "Menu", "en": "Menu"},
+    "hero.scroll": {"fr": "Découvrir", "en": "Scroll"},
+    "stats.years": {"fr": "ans d'expérience", "en": "years of experience"},
+    "stats.experiences": {"fr": "expériences", "en": "roles"},
+    "stats.trainings": {"fr": "formations et diplômes", "en": "trainings and degrees"},
+    "stats.tools": {"fr": "outils et logiciels", "en": "tools and software"},
+    "eyebrow.about": {"fr": "Profil", "en": "Profile"},
+    "eyebrow.skills": {"fr": "Expertise", "en": "Expertise"},
+    "eyebrow.experience": {"fr": "Parcours", "en": "Career"},
+    "eyebrow.projects": {"fr": "Réalisations", "en": "Work"},
+    "eyebrow.education": {"fr": "Apprentissage", "en": "Learning"},
+    "eyebrow.testimonials": {"fr": "Ils en parlent", "en": "Kind words"},
+    "eyebrow.interests": {"fr": "Hors du travail", "en": "Beyond work"},
+    "eyebrow.blog": {"fr": "Écrits", "en": "Writing"},
+    "eyebrow.contact": {"fr": "Échangeons", "en": "Let's talk"},
+    "contact.call": {"fr": "Appeler", "en": "Call"},
 
     "theme.toggle": {"fr": "Changer de thème", "en": "Toggle theme"},
     "lang.toggle": {"fr": "Changer de langue", "en": "Toggle language"},
@@ -111,3 +130,16 @@ def t(key):
     if not entry:
         return key
     return entry.get(lang, entry.get("fr", key))
+
+
+MONTHS = {
+    "fr": ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+    "en": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+}
+
+
+def month_year(d):
+    """Format a date as 'mai 2026' / 'May 2026' in the current language."""
+    if not d:
+        return ""
+    return f"{MONTHS[get_locale()][d.month - 1]} {d.year}"

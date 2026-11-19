@@ -1,3 +1,6 @@
+import re
+from datetime import date
+
 from flask import (
     render_template, redirect, url_for, flash, request, session,
     Response, send_from_directory, current_app, abort,
@@ -29,17 +32,44 @@ def _education_by_category():
     return grouped
 
 
+def _tools():
+    """Software/tool names for the marquee, split from the 'Informatique' skills."""
+    tools = []
+    for skill in Skill.query.filter_by(category_fr="Informatique").order_by(Skill.order.asc()).all():
+        tools += [part.strip() for part in re.split(r"[,;]", skill.name) if part.strip()]
+    return tools
+
+
 @public_bp.route("/", methods=["GET"])
 def index():
     profile = Profile.query.first()
     contact_form = ContactForm()
+    experiences = Experience.query.order_by(Experience.start_date.desc()).all()
+    education_by_category = _education_by_category()
+    skills_by_category = _skills_by_category()
+    tools = _tools()
+
+    stats = []
+    if experiences:
+        years = int((date.today() - min(e.start_date for e in experiences)).days / 365.25)
+        if years >= 1:
+            stats.append((years, "stats.years", "+"))
+        stats.append((len(experiences), "stats.experiences", ""))
+    trainings = sum(len(v) for v in education_by_category.values())
+    if trainings:
+        stats.append((trainings, "stats.trainings", ""))
+    if tools:
+        stats.append((len(tools), "stats.tools", ""))
 
     context = dict(
         profile=profile,
-        skills_by_category=_skills_by_category(),
-        experiences=Experience.query.order_by(Experience.start_date.desc()).all(),
+        skills_by_category=skills_by_category,
+        hero_chips=list(skills_by_category.keys())[:3],
+        tools=tools,
+        stats=stats,
+        experiences=experiences,
         projects=Project.query.order_by(Project.order.asc(), Project.id.asc()).all(),
-        education_by_category=_education_by_category(),
+        education_by_category=education_by_category,
         testimonials=Testimonial.query.filter_by(published=True).order_by(Testimonial.order.asc()).all(),
         interests=Interest.query.order_by(Interest.order.asc(), Interest.id.asc()).all(),
         blog_posts=BlogPost.query.filter_by(published=True).order_by(BlogPost.created_at.desc()).all(),

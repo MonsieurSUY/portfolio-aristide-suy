@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="{{ g.lang }}" class="scroll-smooth">
+<html lang="{{ g.lang }}">
 <head>
 <script>
-  // Applied before paint to avoid a flash of the wrong theme.
+  // Applique le theme avant l'affichage pour eviter un flash du mauvais theme.
   (function () {
-    var stored = localStorage.getItem("theme");
-    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (stored === "dark" || (!stored && prefersDark)) {
-      document.documentElement.classList.add("dark");
-    }
+    try {
+      var stored = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (stored === "dark" || (!stored && prefersDark)) document.documentElement.classList.add("dark");
+    } catch (e) {}
+    document.documentElement.classList.add("js");
   })();
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}{{ profile.full_name if profile else "Portfolio" }} - {{ profile.title if profile else "" }}{% endblock %}</title>
 <meta name="description" content="{% block description %}{{ profile.tagline if profile else "" }}{% endblock %}">
+<meta name="theme-color" content="#fbf7f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1620" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{ self.title() }}">
@@ -29,34 +32,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ["Inter", "ui-sans-serif", "system-ui"],
-          display: ["Sora", "ui-sans-serif", "system-ui"],
-        },
-        colors: {
-          primary: {
-            50: "#eef2ff", 100: "#e0e7ff", 200: "#c7d2fe", 300: "#a5b4fc",
-            400: "#818cf8", 500: "#6366f1", 600: "#4f46e5", 700: "#4338ca",
-            800: "#3730a3", 900: "#312e81", 950: "#1e1b4b",
-          },
-          accent: {
-            300: "#fcd34d", 400: "#fbbf24", 500: "#f59e0b", 600: "#d97706",
-          },
-        },
-      },
-    },
-  };
-</script>
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,100&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
 
 {% if config.ANALYTICS_SCRIPT_SRC %}
 <script defer data-domain="{{ config.ANALYTICS_SCRIPT_DOMAIN }}" src="{{ config.ANALYTICS_SCRIPT_SRC }}"></script>
@@ -64,16 +41,14 @@
 
 {% block head %}{% endblock %}
 </head>
-<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
-
-<a href="#main-content" class="skip-link fixed left-2 top-2 z-[100] -translate-y-20 bg-primary-600 text-white px-4 py-2 rounded-md focus:translate-y-0 transition-transform">
-  {{ "Aller au contenu" if g.lang == "fr" else "Skip to content" }}
-</a>
+<body>
+<a href="#main-content" class="skip-link">{{ t("skip") }}</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
 
 {% block body %}{% endblock %}
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/site.js') }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

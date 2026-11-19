@@ -6,6 +6,12 @@
       "runtimeExecutable": "venv\\Scripts\\python.exe",
       "runtimeArgs": ["wsgi.py"],
       "port": 5000
+    },
+    {
+      "name": "static-dist",
+      "runtimeExecutable": "venv\\Scripts\\python.exe",
+      "runtimeArgs": ["-m", "http.server", "8000", "--directory", "dist"],
+      "port": 8000
     }
   ]
 }

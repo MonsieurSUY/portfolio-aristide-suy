@@ -2,15 +2,12 @@
 {% block title %}{{ t("error.404.title") }}{% endblock %}
 {% block body %}
 {% include "public/_nav.html" %}
-<main id="main-content" class="min-h-[70vh] flex items-center justify-center px-4 pt-16">
-  <div class="text-center">
-    <p class="font-display text-7xl font-extrabold text-gradient">404</p>
-    <h1 class="mt-4 font-display text-2xl font-bold text-slate-900 dark:text-white">{{ t("error.404.title") }}</h1>
-    <p class="mt-2 text-slate-500 dark:text-slate-400">{{ t("error.404.text") }}</p>
-    <a href="{{ home_url }}" class="inline-block mt-8 px-5 py-3 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors">
-      {{ t("error.back_home") }}
-    </a>
+<main id="main-content" class="error-page">
+  <div>
+    <p class="big">404</p>
+    <h1 style="font-size:1.8rem;margin-top:1rem">{{ t("error.404.title") }}</h1>
+    <p style="margin-top:.6rem;color:var(--ink-2)">{{ t("error.404.text") }}</p>
+    <a href="{{ home_url }}" class="btn btn-primary" style="margin-top:2rem">{{ t("error.back_home") }}</a>
   </div>
 </main>
-{% include "public/_footer.html" %}
 {% endblock %}

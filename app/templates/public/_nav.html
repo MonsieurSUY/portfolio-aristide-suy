@@ -1,44 +1,36 @@
-<header class="fixed top-0 inset-x-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
-  <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Navigation principale">
-    <a href="{{ home_url }}" class="font-display font-bold text-lg text-slate-900 dark:text-white">
-      {{ profile.full_name if profile else "Portfolio" }}
+{% set parts = profile.full_name.split() if profile and profile.full_name else [] %}
+<header class="site-header">
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="{{ home_url }}#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">{{ (parts[0][0] ~ parts[-1][0]) if parts|length > 1 else "P" }}</span>
+      <span class="brand-name">{{ profile.full_name if profile else "Portfolio" }}</span>
     </a>
 
-    <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-      <a href="{{ home_url }}#about" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.about") }}</a>
-      <a href="{{ home_url }}#skills" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.skills") }}</a>
-      <a href="{{ home_url }}#experience" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.experience") }}</a>
-      {% if projects is defined and projects %}
-      <a href="{{ home_url }}#projects" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.projects") }}</a>
-      {% endif %}
-      <a href="{{ home_url }}#education" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.education") }}</a>
-      <a href="{{ home_url }}#contact" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ t("nav.contact") }}</a>
-    </div>
+    <ul class="nav-links">
+      <li><a href="{{ home_url }}#about">{{ t("nav.about") }}</a></li>
+      <li><a href="{{ home_url }}#skills">{{ t("nav.skills") }}</a></li>
+      <li><a href="{{ home_url }}#experience">{{ t("nav.experience") }}</a></li>
+      {% if projects is defined and projects %}<li><a href="{{ home_url }}#projects">{{ t("nav.projects") }}</a></li>{% endif %}
+      <li><a href="{{ home_url }}#education">{{ t("nav.education") }}</a></li>
+      <li><a href="{{ home_url }}#contact">{{ t("nav.contact") }}</a></li>
+    </ul>
 
-    <div class="flex items-center gap-2">
-      <a href="{{ lang_switch_url }}"
-         class="w-9 h-9 flex items-center justify-center rounded-full text-sm font-semibold border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-         aria-label="{{ t('lang.toggle') }}">
-        {{ "EN" if g.lang == "fr" else "FR" }}
-      </a>
-      <button id="theme-toggle" type="button" aria-label="{{ t('theme.toggle') }}"
-              class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z"/></svg>
-        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+    <div class="nav-actions">
+      <a href="{{ lang_switch_url }}" class="icon-btn" aria-label="{{ t('lang.toggle') }}">{{ "EN" if g.lang == "fr" else "FR" }}</a>
+      <button type="button" class="icon-btn theme-toggle" aria-label="{{ t('theme.toggle') }}">
+        <svg class="i-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.35 15.35A9 9 0 018.65 3.65 9 9 0 1020.35 15.35z"/></svg>
+        <svg class="i-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4l1.4-1.4"/></svg>
       </button>
-      <button id="mobile-menu-button" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu"
-              class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button type="button" class="icon-btn menu-btn" aria-label="{{ t('menu') }}" aria-expanded="false">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </nav>
-  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 flex flex-col gap-3 text-sm font-medium">
+  <div class="mobile-menu">
     <a href="{{ home_url }}#about">{{ t("nav.about") }}</a>
     <a href="{{ home_url }}#skills">{{ t("nav.skills") }}</a>
     <a href="{{ home_url }}#experience">{{ t("nav.experience") }}</a>
-    {% if projects is defined and projects %}
-    <a href="{{ home_url }}#projects">{{ t("nav.projects") }}</a>
-    {% endif %}
+    {% if projects is defined and projects %}<a href="{{ home_url }}#projects">{{ t("nav.projects") }}</a>{% endif %}
     <a href="{{ home_url }}#education">{{ t("nav.education") }}</a>
     <a href="{{ home_url }}#contact">{{ t("nav.contact") }}</a>
   </div>
