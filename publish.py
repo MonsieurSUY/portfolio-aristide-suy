@@ -76,7 +76,8 @@ def main(argv):
                 listing = sorted(p.name for p in (appdata / "npm").iterdir())[:12]
             except Exception as exc:  # diagnostic only
                 listing = repr(exc)
-            print(f"(APPDATA={str(appdata)!r}, npm folder: {listing}, user={os.environ.get('USERNAME')!r}, exe={sys.executable!r})")
+            target = appdata / "npm" / "vercel.cmd"
+            print(f"(candidate={str(target)!r} exists={target.exists()} is_file={target.is_file()} which={shutil.which('vercel.cmd')!r})")
             ok = False
         elif run(f'"{vercel}" deploy --prod --yes', cwd=DIST):
             print("Site en ligne.")
